@@ -3,7 +3,7 @@
 <H2>Hi everyoneas promised QS STYLER LITE is now avaiable for use, it has much improved UI and Property panel than the last version. </h2>
 
 <h3>
-Reason : old version of qlik sense use this link : <a href="http://branch.qlik.com/#!/project/59cb2b36bdff1fec30f0a886">Qlik Sense Styler</a>
+Reason : old version of qlik sense use this link : <a target="_blank" href="http://branch.qlik.com/#!/project/59cb2b36bdff1fec30f0a886">Qlik Sense Styler</a>
 </h3>
 
 <H3>Advantage's in QS Styler Lite.  </H3>
