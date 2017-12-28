@@ -1,0 +1,1 @@
+# QlikSense-Sheet-Styler-Lite
