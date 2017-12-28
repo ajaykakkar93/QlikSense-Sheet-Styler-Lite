@@ -1,0 +1,286 @@
+
+/*
+
+Barchart,Combochart,table,poivot table box header css
+
+*/
+article.qv-object-barchart .qv-inner-object header{background: #4477aa; text-transform: capitalize; }
+article.qv-object-combochart .qv-inner-object header{background: #4477aa;text-transform: capitalize; }
+article.qv-object-pivot-table .qv-inner-object header{ background: #4477aa; text-transform: capitalize; }
+article.qv-object-table .qv-inner-object header{ background: #4477aa;  text-transform: capitalize; }
+article.qv-object-boxplot .qv-inner-object header{ background: #4477aa;  text-transform: capitalize; }
+article.qv-object-distributionplot .qv-inner-object header{ background: #4477aa;  text-transform: capitalize; }
+article.qv-object-histogram .qv-inner-object header{ background: #4477aa;  text-transform: capitalize; }
+article.qv-object-gauge .qv-inner-object header{ background: #4477aa;  text-transform: capitalize; }
+article.qv-object-piechart .qv-inner-object header{ background: #4477aa;  text-transform: capitalize; }
+article.qv-object-scatterplot .qv-inner-object header{ background: #4477aa;  text-transform: capitalize; }
+article.qv-object-linechart .qv-inner-object header{ background: #4477aa;  text-transform: capitalize; }
+article.qv-object-map .qv-inner-object header{ background: #4477aa;  text-transform: capitalize; }
+article.qv-object-treemap .qv-inner-object header{ background: #4477aa;  text-transform: capitalize; }
+article.qv-object-waterfallchart .qv-inner-object header{ background: #4477aa;  text-transform: capitalize; }
+
+
+ 
+article.qv-object-barchart .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-combochart .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-pivot-table .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-table .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-boxplot .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-distributionplot .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-histogram .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-gauge .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-piechart .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-scatterplot .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-linechart .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-map .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-treemap .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+article.qv-object-waterfallchart .qv-inner-object header h1.qv-object-title {color: #fff;font-weight: 300 !important;font-size: 14px;}
+ 
+ 
+article.qv-object-barchart .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-combochart .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-pivot-table .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-table .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-boxplot .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-distributionplot .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-histogram .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-gauge .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-piechart .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-scatterplot .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-linechart .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-map .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-treemap .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+article.qv-object-waterfallchart .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: 11px 0px 1px 11px;}
+
+
+.qv-viz{margin: 20px 20px 20px 0px;}
+
+/*
+
+fullscreen nav n action btns
+
+*/
+
+/*
+filterpane kpi, textimage css
+*/
+
+.sheet-grid article.qv-object-filterpane .qv-object-nav {top: 45px !important;}
+.sheet-grid.grid-wrap-zoom-cell article.qv-object-filterpane .qv-object-nav {top: -5px !important;}
+
+.sheet-grid article.qv-object-text-image .qv-object-nav {top: 45px !important;}
+.sheet-grid.grid-wrap-zoom-cell article.qv-object-text-image .qv-object-nav {top: -5px !important;}
+
+.sheet-grid article.qv-object-kpi .qv-object-nav {top: 45px !important;}
+.sheet-grid.grid-wrap-zoom-cell article.qv-object-kpi .qv-object-nav {top: -5px !important;}
+
+/*
+on fullscreen style
+*/
+
+.sheet-grid article.qv-object-filterpane .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.sheet-grid.grid-wrap-zoom-cell article.qv-object-filterpane .qv-object-nav > a {font-size: 20px !important;line-height: 36px !important;width: 44px !important;height: 36px !important;}
+
+.sheet-grid article.qv-object-text-image .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.sheet-grid.grid-wrap-zoom-cell article.qv-object-text-image .qv-object-nav > a {    color: rgba(89, 89, 89, 0.6); font-size: 20px !important;line-height: 36px !important;width: 44px !important;height: 36px !important;}
+
+.sheet-grid article.qv-object-kpi .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.sheet-grid.grid-wrap-zoom-cell article.qv-object-kpi .qv-object-nav > a {    color: rgba(89, 89, 89, 0.6); font-size: 20px !important;line-height: 36px !important;width: 44px !important;height: 36px !important;}
+
+/*
+end on fullscreen style
+*/
+
+/*
+end 
+*/
+
+
+
+/*
+ object-content-container 
+*/
+
+article.qv-object-barchart,.qv-object-combochart,.qv-object-table,.qv-object-pivot-table,.qv-object-waterfallchart,
+.qv-object-treemap,.qv-object-map,.qv-object-linechart,.qv-object-scatterplot,.qv-object-piechart,
+.qv-object-gauge,.qv-object-histogram,.qv-object-distributionplot,.qv-object-boxplot,.qv-object-kpi,.qv-object-text-image
+.qv-inner-object
+.qv-object-content-container{border: 1px solid #d7cfcf;}
+
+
+.grid-wrap-zoom-cell .qv-object-barchart .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-combochart .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-table .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-pivot-table .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-waterfallchart .qv-object-content-container {padding-top: 5px!important;}
+.grid-wrap-zoom-cell .qv-object-treemap .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-map .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-linechart .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-scatterplot .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-piechart .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-gauge .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-histogram .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-distributionplot .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-boxplot .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-kpi .qv-object-content-container {padding-top: 5px !important;}
+.grid-wrap-zoom-cell .qv-object-text-image .qv-object-content-container {padding-top: 5px !important;}
+
+
+.qv-object-barchart .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-combochart .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-table .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-pivot-table .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-waterfallchart .qv-object-content-container {padding-top: 5px!important;}
+.qv-object-treemap .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-map .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-content-container {padding-top: 5px !important;}
+.qv-object-scatterplot .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-piechart .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-gauge .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-histogram .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-distributionplot .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-boxplot .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-kpi .qv-object-content-container {padding-top: 5px !important;}
+.qv-object-text-image .qv-object-content-container {padding-top: 5px !important;}
+
+
+/*
+end object-content-container 
+*/
+
+/*
+qv-object-nav basic
+*/
+
+.qv-object-nav > a.border {border: 1px solid #ccc !important;padding: 5px !important;background: #FFFFFF !important;color: #a19a9a !important;border-radius: 0% !importnat;}
+
+/*
+end qv-object-nav basic
+*/
+
+/*
+qv-object-nav 
+*/
+
+.qv-object-nav{top: 50px !important;}
+.grid-wrap-zoom-cell .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell  .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell  .qv-object-nav > a {font-size: 15px !important;}
+.qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+
+/*
+
+.qv-object-barchart .qv-object-nav{top: 50px !important;}
+.qv-object-combochart .qv-object-nav{top: 50px !important;}
+.qv-object-table .qv-object-nav{top: 50px !important;}
+.qv-object-pivot-table  .qv-object-nav{top: 50px !important;}
+.qv-object-waterfallchart .qv-object-nav{top: 50px !important;}
+.qv-object-treemap .qv-object-nav{top: 50px !important;}
+.qv-object-map .qv-object-nav{top: 50px !important;}
+.qv-object-linechart .qv-object-nav{top: 50px !important;}
+.qv-object-scatterplot .qv-object-nav{top: 50px !important;}
+.qv-object-piechart .qv-object-nav{top: 50px !important;}
+.qv-object-gauge .qv-object-nav{top: 50px !important;}
+.qv-object-histogram .qv-object-nav{top: 50px !important;}
+.qv-object-distributionplot .qv-object-nav{top: 50px !important;}
+.qv-object-boxplot .qv-object-nav{top: 50px !important;}
+.qv-object-kpi .qv-object-nav{top: 50px !important;}
+.qv-object-text-image .qv-object-nav{top: 50px !important;}
+
+
+.grid-wrap-zoom-cell .qv-object-barchart .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-combochart .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-table .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-pivot-table  .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-waterfallchart  .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-treemap  .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-map  .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-linechart  .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-scatterplot  .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-piechart  .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-gauge .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-histogram  .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-distributionplot  .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-boxplot  .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-kpi  .qv-object-nav{top: 9px !important;right: 17px !important;}
+.grid-wrap-zoom-cell .qv-object-text-image  .qv-object-nav{top: 9px !important;right: 17px !important;}
+
+
+
+.grid-wrap-zoom-cell .qv-object-barchart .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-combochart .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-table .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-pivot-table .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-waterfallchart .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-treemap .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-map .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-linechart .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-scatterplot .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-piechart .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-gauge .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-histogram .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-boxplot .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-distributionplot .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-kpi .qv-object-nav.zero-top > a {color: #fff !important;}
+.grid-wrap-zoom-cell .qv-object-text-image .qv-object-nav.zero-top > a {color: #fff !important;}
+
+
+.grid-wrap-zoom-cell .qv-object-barchart .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-combochart .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-table .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-pivot-table .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-waterfallchart .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-treemap .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-map .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-linechart .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-scatterplot .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-piechart .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-gauge .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-histogram .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-distributionplot .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-boxplot .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-kpi .qv-object-nav > a {font-size: 15px !important;}
+.grid-wrap-zoom-cell .qv-object-text-image .qv-object-nav > a {font-size: 15px !important;}
+
+
+.qv-object-barchart .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-combochart .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-table .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-pivot-table .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+
+.qv-object-waterfallchart .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-treemap .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-map .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-linechart .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-scatterplot .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-piechart .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-gauge .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-histogram .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-distributionplot .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-boxplot .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-kpi .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+.qv-object-text-image .qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}
+
+*/
+
+
+.qv-object-nav > a.border{border-radius: 0% !important;}
+
+
+/*table css*/
+
+
+.qv-st-header-wrapper tr:nth-child(1) {background: #c9cacc;}
+.qv-st-header-wrapper tr:nth-child(2) {background: #00BCD4 !important;color: #fff;}
+
+.qv-st-bottom-header tr{background: #00BCD4 !important;color: #fff;}
+
+.qv-object-pivot-table .qv-inner-object table tr:nth-child(1) {background: #c9cacc;}
+
+.qv-object-table .qv-inner-object .qv-object-content-container .qv-grid-object-scroll-area table tr:nth-child(even) {background: #eee}
+.qv-object-table .qv-inner-object .qv-object-content-container .qv-grid-object-scroll-area table tr:nth-child(odd) {background: #FFF}
+
+
+
+
+

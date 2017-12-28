@@ -1,0 +1,15 @@
+{
+	"name": "QlikSense-Sheet-Styler-Lite",
+	"description": "Basic empty visualization template",
+	"type": "visualization",
+	"version": "1.0.0",
+	"icon": "extension",
+	"author": "Ajay Kakkar",
+	"homepage": "",
+	"keywords": "qlik-sense, visualization",
+	"license": "",
+	"repository": "",
+	"dependencies": {
+		"qlik-sense": ">=3.2.x"
+	}
+}

@@ -1,0 +1,184 @@
+
+.qv-client.qv-card #qv-stage-container #grid .qv-gridcell .sheet-list.cell-content {
+  border: none;
+  padding: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .cell-content .qv-object {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-viz.qv-viz-with-disclaimer {
+  height: -webkit-calc(100% - 2.19em);
+  height: calc(100% - 2.19em);
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-viz-disclaimer {
+  padding: 0.5em 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .zoom .qv-object-wrapper .qv-object {
+  border: none;
+}
+.qv-client.qv-card #qv-stage-container #grid .zoom .qv-object .qv-object-header.thin {
+  height: 38px !important;
+}
+.qv-client.qv-card #qv-stage-container #grid .zoom .qv-object .qv-footer-wrapper {
+  border: none;
+  border-top: 1px solid #D9D9D9;
+}
+.qv-client.qv-card #qv-stage-container #grid .zoom .qv-object-nav {
+  top: 0px;
+  background: none;
+}
+.qv-client.qv-card #qv-stage-container #grid .zoom .qv-object-nav.zero-top {
+  top: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-wrapper .qv-object {
+  border: 1px solid #D9D9D9;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-wrapper .qv-inner-object {
+  padding: 0px 10px 5px 10px;
+  background: #FFFFFF;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-wrapper.has-footnote .qv-inner-object {
+  padding-bottom: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object .qv-footer-wrapper {
+  height: auto;
+  background: #FBFBFB;
+  padding: 6px 10px;
+  border-top: 1px solid #D9D9D9;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object .qv-object-footnote {
+  margin-top: 0px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object.qv-selections-active {
+  border-color: #A6A6A6;
+  border-top: 1px solid transparent;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object .qv-object-header.thin {
+  height: 5px;
+  padding: 0;
+}
+.touch-off .qv-client.qv-card #qv-stage-container #grid .qv-object .qv-object-header.thin {
+  height: 28px;
+}
+.touch-off .sheet-list .qv-client.qv-card #qv-stage-container #grid .qv-object .qv-object-header.thin {
+  height: 5px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object .qv-object-title {
+  padding-top: 10px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object.qv-object-filterpane {
+  border: none;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object.qv-object-filterpane .qv-inner-object {
+  padding: 0px;
+  background: none;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object.qv-object-filterpane .qv-footer-wrapper {
+  border: none;
+  background: none;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object.qv-object-filterpane .qv-object-header.thin {
+  height: 0;
+}
+.touch-off .qv-client.qv-card #qv-stage-container #grid .qv-object.qv-object-filterpane .qv-object-header.thin {
+  height: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object.qv-object-filterpane .qv-object-nav {
+  right: 2px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object.qv-object-filterpane .qv-object-nav.qv-rtl-layout {
+  left: 2px;
+  right: auto;
+}
+.qv-client.qv-card #qv-stage-container #grid .zoom .qv-object.qv-object-filterpane .qv-object-nav {
+  left: auto;
+  right: 10px;
+}
+.qv-client.qv-card #qv-stage-container #grid .zoom .qv-object.qv-object-filterpane .qv-object-nav.qv-rtl-layout {
+  right: auto;
+  left: 10px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-filterpane {
+  border: none;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-filterpane .qv-filterpane-column {
+  margin: 0 4px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-filterpane .qv-filterpane-column:first-child {
+  margin-left: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-filterpane .qv-filterpane-column:last-child {
+  margin-right: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-filterpane.qv-rtl-layout .qv-filterpane-column {
+  margin: 0 4px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-filterpane.qv-rtl-layout .qv-filterpane-column:first-child {
+  margin-right: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-filterpane.qv-rtl-layout .qv-filterpane-column:last-child {
+  margin-left: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-kpi .qv-inner-object {
+  padding: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-kpi .qv-inner-object .qv-object-header {
+  padding-left: 10px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-kpi .qv-inner-object .qv-object-header.thin {
+  height: 0px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-kpi .qv-inner-object .qv-object-header.qv-rtl-layout {
+  padding-right: 10px;
+  padding-left: 0px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object.qv-object-listbox {
+  border: 1px solid #D9D9D9;
+  background: #FFFFFF;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object.qv-object-listbox.qv-selections-active {
+  border: 1px solid #A6A6A6;
+  border-top: 1px solid transparent;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-map .qv-inner-object {
+  padding: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-map .qv-inner-object .qv-object-header {
+  padding-left: 10px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-map .qv-inner-object .qv-object-header.qv-rtl-layout {
+  padding-right: 10px;
+  padding-left: 0px;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-pivot-table .qv-inner-object {
+  padding: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object-table .qv-inner-object {
+  padding: 0;
+}
+.qv-client.qv-card #qv-stage-container #grid .qv-object.qv-object-table.qv-selections-active {
+  border: 1px solid #A6A6A6;
+  border-radius: 4px;
+}
+.qv-client.qv-card #qv-stage-container .qvt-sheet {
+  background-color: #F2F2F2;
+  color: #595959;
+}
+.qv-client.qv-card #qv-stage-container .qv-object-nav {
+  margin-top: 0px;
+}
+.qv-client.qv-card #qv-stage-container .qv-object-nav.inline {
+  top: 3px;
+}
+.qv-client.qv-card #qv-stage-container .qv-object-nav > a.border {
+  border-radius: 3px;
+  border: none;
+  padding: 0px 3px;
+}

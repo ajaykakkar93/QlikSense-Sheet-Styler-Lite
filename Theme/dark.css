@@ -1,0 +1,101 @@
+.qv-object {
+    background-color: #333333;
+    color: #E6E6E6;
+}
+.qvt-range-selection .axis-cover {
+  background-color: rgba(82, 204, 82, 0.6);
+}
+.qvt-range-selection .axis-cover.active,
+.qvt-range-selection .axis-cover:hover {
+  background-color: rgba(82, 204, 82, 0.8);
+}
+.qvt-range-selection .bubble {
+  background-color: #333333;
+  border-color: rgba(153, 153, 153, 0.2);
+}
+.qvt-range-selection .bubble.active,
+.qvt-range-selection .bubble:hover {
+  border-color: #CCCCCC;
+}
+.qvt-range-selection .range-vertical .near-edge,
+.qvt-range-selection .range-horizontal .near-edge,
+.qvt-range-selection .range-vertical .far-edge,
+.qvt-range-selection .range-horizontal .far-edge {
+  border-color: rgba(153, 153, 153, 0.2);
+}
+.qvt-range-selection .range-vertical .near-edge.active,
+.qvt-range-selection .range-horizontal .near-edge.active,
+.qvt-range-selection .range-vertical .far-edge.active,
+.qvt-range-selection .range-horizontal .far-edge.active,
+.qvt-range-selection .range-vertical .near-edge:hover,
+.qvt-range-selection .range-horizontal .near-edge:hover,
+.qvt-range-selection .range-vertical .far-edge:hover,
+.qvt-range-selection .range-horizontal .far-edge:hover {
+  border-color: #CCCCCC;
+}
+#grid .qv-gridcell .qv-object-nav > a.white {
+  background-color: #333333;
+}
+#grid .qv-gridcell .qv-object-nav > a:hover {
+  color: #A6A6A6;
+}
+#grid .qv-gridcell .qv-object-nav > a.border {
+  border-color: #B3B3B3;
+}
+#grid .qv-gridcell .qv-object-nav > a.border:hover {
+  border-color: #A6A6A6;
+}
+.qvt-gridcell.zoom {
+  background-color: #333333;
+}
+.qvt-gridcell .zoomBorder {
+  background-color: #333333;
+  border: 2px solid #4D4D4D;
+}
+.qvt-selection-toolbar {
+  background-color: #333333;
+}
+.qvt-selection-toolbar.sel-toolbar-click-to-unlock-bg {
+  background-color: #8C8C8C;
+}
+.qvt-sheet {
+  background-color: #333333;
+  color: #E6E6E6;
+}
+.qvt-sheet-expand-button {
+  color: #E6E6E6;
+  background-color: #333333;
+}
+.qvt-visualization-title {
+  color: #E6E6E6;
+}
+.qv-object-listbox .qvt-visualization-title {
+  color: #E6E6E6;
+}
+.qv-collapsed-listbox {	background: #6D6D6D;}.qv-collapsed-listbox .title-wrapper .title {	color: #D9D9D9;}.qv-listbox li.serverOptional {	background-color: #fff;}
+
+.qv-collapsed-listbox .title {
+  color: #E6E6E6; 
+}
+.qvt-visualization-subtitle {
+  color: #D9D9D9;
+}
+.qvt-visualization-footnote {
+  color: #D9D9D9;
+}
+.qvt-visualization-axis-breadcrumb .crumb-item {
+  color: #E6E6E6;
+}
+.qvt-visualization-axis-breadcrumb .crumb-item .crumb-button {
+  color: #A6A6A6;
+}
+.qvt-visualization-axis-breadcrumb .crumb-item .crumb-button:hover {
+  color: #E6E6E6;
+}
+.qvt-chart-tooltip {
+  background-color: #E6E6E6;
+  color: #333333;
+}
+.qvt-chart-tooltip .immidiate-contextual-arrow {
+  border-bottom: 10px solid #E6E6E6;
+}
