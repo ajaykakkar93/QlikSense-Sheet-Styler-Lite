@@ -248,5 +248,4 @@ Leave Comments for any Improvements for this styling extension.
 
 </h2>
 </center>
-<hr>
 
