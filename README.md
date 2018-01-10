@@ -219,20 +219,12 @@ color:#646464;font-weight:normal'>Add More Objects</span></h3>
 <h3 style='margin-top:3.75pt;margin-right:0in;margin-bottom:3.75pt;margin-left:
 0in;background:white'><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
 color:#646464;font-weight:normal'>Export Layout</span></h3>
+<ul>
+ <li class=MsoNormal style='color:#333333;line-height:normal;background:white'><span
+     style='font-size:10.5pt'>Show Layout Style: views a
+text area with current style</span></li>
+</ul>
 
-<p class=MsoNormal style='margin-left:.5in;text-indent:-.25in;line-height:normal;
-background:white'><span style='font-size:9.0pt;font-family:Symbol;color:#222222'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span style='font-size:10.5pt;color:#333333'>Show</span><span
-style='font-size:9.0pt;color:#222222;background:white'> Layout Style: views a
-text area with current style</span></p>
-
-<p class=MsoNormal><span style='font-size:30.0pt;line-height:107%;color:#646464'>&nbsp;</span></p>
-
-<p class=MsoNormal><span style='font-size:30.0pt;line-height:107%;color:#646464'>&nbsp;</span></p>
-
-<p class=MsoNormal><span style='font-size:9.0pt;line-height:107%;color:#222222;
-background:white'>&nbsp;</span></p>
 
 <!--
 
