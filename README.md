@@ -31,19 +31,6 @@ color:#646464;font-weight:normal'>Advantage's in QS Styler Lite.</span></h3>
      box-sizing: border-box'><span style='font-size:10.5pt'>Styling Theme is
      applied to all qlik sense objects in the Sheet.</span></li>
 </ul>
-<hr>
-<center>
-<h2 style='margin-top:3.75pt;margin-right:0in;margin-bottom:3.75pt;margin-left:
-0in;background:white'><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
-color:#646464;font-weight:normal'>
-I will Add More options if possible,
-
-Leave Comments for any Improvements for this styling extension.
-</span></span>
-
-</h2>
-</center>
-<hr>
 
 
 <h3 style='margin-top:3.75pt;margin-right:0in;margin-bottom:3.75pt;margin-left:
@@ -248,3 +235,18 @@ Reason : old version of qlik sense use this link : <a target="_blank" href="http
 
 <Hr>
  <img src="./QlikSense-Sheet-Styler-Lite.gif" alt="3nd Version">
+ 
+ <hr>
+<center>
+<h2 style='margin-top:3.75pt;margin-right:0in;margin-bottom:3.75pt;margin-left:
+0in;background:white'><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
+color:#646464;font-weight:normal'>
+I will Add More options if possible,
+
+Leave Comments for any Improvements for this styling extension.
+</span></span>
+
+</h2>
+</center>
+<hr>
+
