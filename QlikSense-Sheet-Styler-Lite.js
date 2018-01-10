@@ -1,6 +1,8 @@
 define(["qlik", "ng!$q"],
     function(qlik, ng) {
-
+	 "use strict";
+        console.time('qlik Function start #1');
+        console.timeEnd('qlik Function start #1');
         var objectlist1 = [
                 'barchart',
                 'combochart',
@@ -18,19 +20,16 @@ define(["qlik", "ng!$q"],
                 'boxplot',
                 'kpi',
                 'text-image'
-            ],objectlist = [];
-
+            ],
+            objectlist = [];
         var sheetId = qlik.navigation.getCurrentSheetId().sheetId;
         var app = qlik.currApp();
-
         var getSheetList = function() {
-
-        var defer = ng.defer();
-
-         app.getAppObjectList('sheet', function(reply) {
+            var defer = ng.defer();
+            app.getAppObjectList('sheet', function(reply) {
                 var str = "";
                 $.each(reply.qAppObjectList.qItems, function(key, value) {
-                   var sheet = value.qInfo.qId + '';
+                    var sheet = value.qInfo.qId + '';
                     if (sheet == sheetId) {
                         var objlist = [];
                         //str += value.qData.title + ' ';
@@ -68,9 +67,7 @@ define(["qlik", "ng!$q"],
 
         function addStyleLinkToHeader(linkUrl, id) {
             if (id && !_.isEmpty(id)) {
-
                 if (!$('#' + id).length) {
-
                     var $styleLink = $(document.createElement('link'));
                     $styleLink.attr('rel', 'stylesheet');
                     $styleLink.attr('type', 'text/css');
@@ -79,40 +76,160 @@ define(["qlik", "ng!$q"],
                         $styleLink.attr('id', id);
                     }
                     $('head').append($styleLink);
-
                 }
-
             }
         }
+        var getFontList = function() {
+
+            var fontstyle = [
+                "ABeeZee", "Abel", "Abhaya Libre", "Abril Fatface", "Aclonica", "Acme", "Actor", "Adamina",
+                "Advent Pro", "Aguafina Script", "Akronim", "Aladin", "Aldrich", "Alef", "Alegreya",
+                "Alegreya SC", "Alegreya Sans", "Alegreya Sans SC", "Alex Brush", "Alfa Slab One",
+                "Alice", "Alike", "Alike Angular", "Allan", "Allerta", "Allerta Stencil", "Allura",
+                "Almendra", "Almendra Display", "Almendra SC", "Amarante", "Amaranth", "Amatic SC",
+                "Amatica SC", "Amethysta", "Amiko", "Amiri", "Amita", "Anaheim", "Andada", "Andika",
+                "Angkor", "Annie Use Your Telescope", "Anonymous Pro", "Antic", "Antic Didone",
+                "Antic Slab", "Anton", "Arapey", "Arbutus", "Arbutus Slab", "Architects Daughter",
+                "Archivo", "Archivo Black", "Archivo Narrow", "Aref Ruqaa", "Arima Madurai", "Arimo",
+                "Arizonia", "Armata", "Arsenal", "Artifika", "Arvo", "Arya", "Asap", "Asap Condensed",
+                "Asar", "Asset", "Assistant", "Astloch", "Asul", "Athiti", "Atma", "Atomic Age", "Aubrey",
+                "Audiowide", "Autour One", "Average", "Average Sans", "Averia Gruesa Libre", "Averia Libre",
+                "Averia Sans Libre", "Averia Serif Libre", "Bad Script", "Bahiana", "Baloo", "Baloo Bhai",
+                "Baloo Bhaijaan", "Baloo Bhaina", "Baloo Chettan", "Baloo Da", "Baloo Paaji", "Baloo Tamma",
+                "Baloo Tammudu", "Baloo Thambi", "Balthazar", "Bangers", "Barrio", "Basic", "Battambang",
+                "Baumans", "Bayon", "Belgrano", "Bellefair", "Belleza", "BenchNine", "Bentham", "Berkshire Swash",
+                "Bevan", "Bigelow Rules", "Bigshot One", "Bilbo", "Bilbo Swash Caps", "BioRhyme", "BioRhyme Expanded",
+                "Biryani", "Bitter", "Black Ops One", "Bokor", "Bonbon", "Boogaloo", "Bowlby One", "Bowlby One SC",
+                "Brawler", "Bree Serif", "Bubblegum Sans", "Bubbler One", "Buda", "Buenard", "Bungee", "Bungee Hairline",
+                "Bungee Inline", "Bungee Outline", "Bungee Shade", "Butcherman", "Butterfly Kids", "Cabin", "Cabin Condensed",
+                "Cabin Sketch", "Caesar Dressing", "Cagliostro", "Cairo", "Calligraffitti", "Cambay", "Cambo", "Candal", "Cantarell",
+                "Cantata One", "Cantora One", "Capriola", "Cardo", "Carme", "Carrois Gothic", "Carrois Gothic SC", "Carter One",
+                "Catamaran", "Caudex", "Caveat", "Caveat Brush", "Cedarville Cursive", "Ceviche One", "Changa", "Changa One",
+                "Chango", "Chathura", "Chau Philomene One", "Chela One", "Chelsea Market", "Chenla", "Cherry Cream Soda",
+                "Cherry Swash", "Chewy", "Chicle", "Chivo", "Chonburi", "Cinzel", "Cinzel Decorative", "Clicker Script",
+                "Coda", "Coda Caption", "Codystar", "Coiny", "Combo", "Comfortaa", "Coming Soon", "Concert One",
+                "Condiment", "Content", "Contrail One", "Convergence", "Cookie", "Copse", "Corben", "Cormorant",
+                "Cormorant Garamond", "Cormorant Infant", "Cormorant SC", "Cormorant Unicase", "Cormorant Upright",
+                "Courgette", "Cousine", "Coustard", "Covered By Your Grace", "Crafty Girls", "Creepster", "Crete Round",
+                "Crimson Text", "Croissant One", "Crushed", "Cuprum", "Cutive", "Cutive Mono", "Damion", "Dancing Script",
+                "Dangrek", "David Libre", "Dawning of a New Day", "Days One", "Dekko", "Delius", "Delius Swash Caps",
+                "Delius Unicase", "Della Respira", "Denk One", "Devonshire", "Dhurjati", "Didact Gothic", "Diplomata",
+                "Diplomata SC", "Domine", "Donegal One", "Doppio One", "Dorsa", "Dosis", "Dr Sugiyama", "Droid Sans",
+                "Droid Sans Mono", "Droid Serif", "Duru Sans", "Dynalight", "EB Garamond", "Eagle Lake", "Eater", "Economica",
+                "Eczar", "El Messiri", "Electrolize", "Elsie", "Elsie Swash Caps", "Emblema One", "Emilys Candy", "Encode Sans",
+                "Encode Sans Condensed", "Encode Sans Expanded", "Encode Sans Semi Condensed", "Encode Sans Semi Expanded",
+                "Engagement", "Englebert", "Enriqueta", "Erica One", "Esteban", "Euphoria Script", "Ewert", "Exo", "Exo 2",
+                "Expletus Sans", "Fanwood Text", "Farsan", "Fascinate", "Fascinate Inline", "Faster One", "Fasthand", "Fauna One",
+                "Faustina", "Federant", "Federo", "Felipa", "Fenix", "Finger Paint", "Fira Mono", "Fira Sans", "Fira Sans Condensed",
+                "Fira Sans Extra Condensed", "Fjalla One", "Fjord One", "Flamenco", "Flavors", "Fondamento", "Fontdiner Swanky",
+                "Forum", "Francois One", "Frank Ruhl Libre", "Freckle Face", "Fredericka the Great", "Fredoka One", "Freehand",
+                "Fresca", "Frijole", "Fruktur", "Fugaz One", "GFS Didot", "GFS Neohellenic", "Gabriela", "Gafata", "Galada",
+                "Galdeano", "Galindo", "Gentium Basic", "Gentium Book Basic", "Geo", "Geostar", "Geostar Fill", "Germania One",
+                "Gidugu", "Gilda Display", "Give You Glory", "Glass Antiqua", "Glegoo", "Gloria Hallelujah", "Goblin One",
+                "Gochi Hand", "Gorditas", "Goudy Bookletter 1911", "Graduate", "Grand Hotel", "Gravitas One", "Great Vibes",
+                "Griffy", "Gruppo", "Gudea", "Gurajada", "Habibi", "Halant", "Hammersmith One", "Hanalei", "Hanalei Fill", "Handlee",
+                "Hanuman", "Happy Monkey", "Harmattan", "Headland One", "Heebo", "Henny Penny", "Herr Von Muellerhoff", "Hind",
+                "Hind Guntur", "Hind Madurai", "Hind Siliguri", "Hind Vadodara", "Holtwood One SC", "Homemade Apple", "Homenaje",
+                "IM Fell DW Pica", "IM Fell DW Pica SC", "IM Fell Double Pica", "IM Fell Double Pica SC", "IM Fell English",
+                "IM Fell English SC", "IM Fell French Canon", "IM Fell French Canon SC", "IM Fell Great Primer",
+                "IM Fell Great Primer SC", "Iceberg", "Iceland", "Imprima", "Inconsolata", "Inder", "Indie Flower", "Inika",
+                "Inknut Antiqua", "Irish Grover", "Istok Web", "Italiana", "Italianno", "Itim", "Jacques Francois",
+                "Jacques Francois Shadow", "Jaldi", "Jim Nightshade", "Jockey One", "Jolly Lodger", "Jomhuria", "Josefin Sans",
+                "Josefin Slab", "Joti One", "Judson", "Julee", "Julius Sans One", "Junge", "Jura", "Just Another Hand",
+                "Just Me Again Down Here", "Kadwa", "Kalam", "Kameron", "Kanit", "Kantumruy", "Karla", "Karma", "Katibeh",
+                "Kaushan Script", "Kavivanar", "Kavoon", "Kdam Thmor", "Keania One", "Kelly Slab", "Kenia", "Khand",
+                "Khmer", "Khula", "Kite One", "Knewave", "Kotta One", "Koulen", "Kranky", "Kreon", "Kristi", "Krona One",
+                "Kumar One", "Kumar One Outline", "Kurale", "La Belle Aurore", "Laila", "Lakki Reddy", "Lalezar", "Lancelot",
+                "Lateef", "Lato", "League Script", "Leckerli One", "Ledger", "Lekton", "Lemon", "Lemonada", "Libre Barcode 128",
+                "Libre Barcode 128 Text", "Libre Barcode 39", "Libre Barcode 39 Extended", "Libre Barcode 39 Extended Text",
+                "Libre Barcode 39 Text", "Libre Baskerville", "Libre Franklin", "Life Savers", "Lilita One", "Lily Script One",
+                "Limelight", "Linden Hill", "Lobster", "Lobster Two", "Londrina Outline", "Londrina Shadow", "Londrina Sketch",
+                "Londrina Solid", "Lora", "Love Ya Like A Sister", "Loved by the King", "Lovers Quarrel", "Luckiest Guy", "Lusitana",
+                "Lustria", "Macondo", "Macondo Swash Caps", "Mada", "Magra", "Maiden Orange", "Maitree", "Mako", "Mallanna", "Mandali",
+                "Manuale", "Marcellus", "Marcellus SC", "Marck Script", "Margarine", "Marko One", "Marmelad", "Martel", "Martel Sans",
+                "Marvel", "Mate", "Mate SC", "Maven Pro", "McLaren", "Meddon", "MedievalSharp", "Medula One", "Meera Inimai", "Megrim",
+                "Meie Script", "Merienda", "Merienda One", "Merriweather", "Merriweather Sans", "Metal", "Metal Mania", "Metamorphous",
+                "Metrophobic", "Michroma", "Milonga", "Miltonian", "Miltonian Tattoo", "Miniver", "Miriam Libre", "Mirza", "Miss Fajardose",
+                "Mitr", "Modak", "Modern Antiqua", "Mogra", "Molengo", "Molle", "Monda", "Monofett", "Monoton", "Monsieur La Doulaise", "Montaga",
+                "Montez", "Montserrat", "Montserrat Alternates", "Montserrat Subrayada", "Moul", "Moulpali", "Mountains of Christmas", "Mouse Memoirs",
+                "Mr Bedfort", "Mr Dafoe", "Mr De Haviland", "Mrs Saint Delafield", "Mrs Sheppards", "Mukta", "Mukta Mahee", "Mukta Malar",
+                "Mukta Vaani", "Muli", "Mystery Quest", "NTR", "Neucha", "Neuton", "New Rocker", "News Cycle", "Niconne", "Nixie One", "Nobile",
+                "Nokora", "Norican", "Nosifer", "Nothing You Could Do", "Noticia Text", "Noto Sans", "Noto Serif", "Nova Cut", "Nova Flat",
+                "Nova Mono", "Nova Oval", "Nova Round", "Nova Script", "Nova Slim", "Nova Square", "Numans", "Nunito", "Nunito Sans",
+                "Odor Mean Chey", "Offside", "Old Standard TT", "Oldenburg", "Oleo Script", "Oleo Script Swash Caps", "Open Sans",
+                "Open Sans Condensed", "Oranienbaum", "Orbitron", "Oregano", "Orienta", "Original Surfer", "Oswald", "Over the Rainbow",
+                "Overlock", "Overlock SC", "Overpass", "Overpass Mono", "Ovo", "Oxygen", "Oxygen Mono", "PT Mono", "PT Sans", "PT Sans Caption",
+                "PT Sans Narrow", "PT Serif", "PT Serif Caption", "Pacifico", "Padauk", "Palanquin", "Palanquin Dark", "Pangolin", "Paprika",
+                "Parisienne", "Passero One", "Passion One", "Pathway Gothic One", "Patrick Hand", "Patrick Hand SC", "Pattaya", "Patua One",
+                "Pavanam", "Paytone One", "Peddana", "Peralta", "Permanent Marker", "Petit Formal Script", "Petrona", "Philosopher", "Piedra",
+                "Pinyon Script", "Pirata One", "Plaster", "Play", "Playball", "Playfair Display", "Playfair Display SC", "Podkova", "Poiret One",
+                "Poller One", "Poly", "Pompiere", "Pontano Sans", "Poppins", "Port Lligat Sans", "Port Lligat Slab", "Pragati Narrow", "Prata",
+                "Preahvihear", "Press Start 2P", "Pridi", "Princess Sofia", "Prociono", "Prompt", "Prosto One", "Proza Libre", "Puritan", "Purple Purse",
+                "Quando", "Quantico", "Quattrocento", "Quattrocento Sans", "Questrial", "Quicksand", "Quintessential", "Qwigley", "Racing Sans One",
+                "Radley", "Rajdhani", "Rakkas", "Raleway", "Raleway Dots", "Ramabhadra", "Ramaraja", "Rambla", "Rammetto One", "Ranchers", "Rancho",
+                "Ranga", "Rasa", "Rationale", "Ravi Prakash", "Redressed", "Reem Kufi", "Reenie Beanie", "Revalia", "Rhodium Libre", "Ribeye",
+                "Ribeye Marrow", "Righteous", "Risque", "Roboto", "Roboto Condensed", "Roboto Mono", "Roboto Slab", "Rochester",
+                "Rock Salt", "Rokkitt", "Romanesco", "Ropa Sans", "Rosario", "Rosarivo", "Rouge Script", "Rozha One", "Rubik",
+                "Rubik Mono One", "Ruda", "Rufina", "Ruge Boogie", "Ruluko", "Rum Raisin", "Ruslan Display", "Russo One", "Ruthie",
+                "Rye", "Sacramento", "Sahitya", "Sail", "Saira", "Saira Condensed", "Saira Extra Condensed", "Saira Semi Condensed",
+                "Salsa", "Sanchez", "Sancreek", "Sansita", "Sarala", "Sarina", "Sarpanch", "Satisfy", "Scada", "Scheherazade", "Schoolbell",
+                "Scope One", "Seaweed Script", "Secular One", "Sedgwick Ave", "Sedgwick Ave Display", "Sevillana", "Seymour One",
+                "Shadows Into Light", "Shadows Into Light Two", "Shanti", "Share", "Share Tech", "Share Tech Mono", "Shojumaru",
+                "Short Stack", "Shrikhand", "Siemreap", "Sigmar One", "Signika", "Signika Negative", "Simonetta", "Sintony", "Sirin Stencil",
+                "Six Caps", "Skranji", "Slabo 13px", "Slabo 27px", "Slackey", "Smokum", "Smythe", "Sniglet", "Snippet", "Snowburst One",
+                "Sofadi One", "Sofia", "Sonsie One", "Sorts Mill Goudy", "Source Code Pro", "Source Sans Pro", "Source Serif Pro",
+                "Space Mono", "Special Elite", "Spectral", "Spicy Rice", "Spinnaker", "Spirax", "Squada One", "Sree Krushnadevaraya",
+                "Sriracha", "Stalemate", "Stalinist One", "Stardos Stencil", "Stint Ultra Condensed", "Stint Ultra Expanded", "Stoke",
+                "Strait", "Sue Ellen Francisco", "Suez One", "Sumana", "Sunshiney", "Supermercado One", "Sura", "Suranna", "Suravaram",
+                "Suwannaphum", "Swanky and Moo Moo", "Syncopate", "Tangerine", "Taprom", "Tauri", "Taviraj", "Teko", "Telex",
+                "Tenali Ramakrishna", "Tenor Sans", "Text Me One", "The Girl Next Door", "Tienne", "Tillana", "Timmana", "Tinos",
+                "Titan One", "Titillium Web", "Trade Winds", "Trirong", "Trocchi", "Trochut", "Trykker", "Tulpen One", "Ubuntu",
+                "Ubuntu Condensed", "Ubuntu Mono", "Ultra", "Uncial Antiqua", "Underdog", "Unica One", "UnifrakturCook",
+                "UnifrakturMaguntia", "Unkempt", "Unlock", "Unna", "VT323", "Vampiro One", "Varela", "Varela Round", "Vast Shadow",
+                "Vesper Libre", "Vibur", "Vidaloka", "Viga", "Voces", "Volkhov", "Vollkorn", "Voltaire", "Waiting for the Sunrise",
+                "Wallpoet", "Walter Turncoat", "Warnes", "Wellfleet", "Wendy One", "Wire One", "Work Sans", "Yanone Kaffeesatz",
+                "Yantramanav", "Yatra One", "Yellowtail", "Yeseva One", "Yesteryear", "Yrsa", "Zeyada", "Zilla Slab", "Zilla Slab Highlight"
+            ];
+            var defer = ng.defer();
+            var list = [];
+            $.each(fontstyle, function(no, value) {
+                //  console.log(value);
+                list.push({
+                    value: value,
+                    label: value
+                });
+                return defer.resolve(list);
+            });
+            return defer.promise;
+        };
+
 
         return {
             initialProperties: {
                 listItems: [],
-				listItems2: []
+                listItems2: []
             },
             definition: {
                 type: "items",
                 component: "accordion",
                 items: {
-
                     selectstyle: {
-                        label: 'Select Style',
+                        label: 'Select Style Type',
                         items: {
-							
-							manualselectobj: {
+                            manualselectobj: {
                                 ref: "manualselectobj",
-                                label: "Manually Select Object's",
+                                label: "Manually Select Object's and style theme",
                                 type: "boolean",
                                 defaultValue: false
                             },
-							
+
                             selectcustomstyle: {
                                 ref: "selectcustomstyle",
-                                label: "Change Sheet Style",
+                                label: "Select Sheet Style",
                                 type: "boolean",
                                 defaultValue: false
                             },
-							
+
                             stylelist: {
                                 type: "string",
                                 component: "dropdown",
@@ -164,46 +281,40 @@ define(["qlik", "ng!$q"],
                                 }
 
                             },
-							
-							
-							// objects
-
-                    MyList: {
-                        type: "array",
-                        ref: "listItems",
-                        label: "Add Objects",
-                        itemTitleRef: "label",
-                        allowAdd: true,
-                        allowRemove: true,
-                        addTranslation: "Add Objects",
-                        min: 1,
-						show: function(data) {
+                            // objects
+                            MyList: {
+                                type: "array",
+                                ref: "listItems",
+                                label: "Add Objects",
+                                itemTitleRef: "label",
+                                allowAdd: true,
+                                allowRemove: true,
+                                addTranslation: "Add Objects",
+                                min: 1,
+                                show: function(data) {
                                     if (data.manualselectobj) {
                                         return true;
                                     } else {
                                         return false;
                                     }
                                 },
-                        items: {
-                            label: {
-                                type: "string",
-                                ref: "label",
-                                label: "Label",
-                                expression: "optional"
+                                items: {
+                                    label: {
+                                        type: "string",
+                                        ref: "label",
+                                        label: "Label",
+                                        expression: "optional"
+                                    },
+                                    // start
+                                    objectlst: objectlst
+                                    // end
+                                }
                             },
-                            // start
-                            objectlst: objectlst
-                            // end
                         }
                     },
 
-
-
-                        }
-                    },
-					
                     sheetsettings: {
-                        label: 'Sheet Settings',
+                        label: 'Basic Sheet Settings',
                         show: function(data) {
                             if (data.selectcustomstyle) {
                                 return false;
@@ -213,6 +324,29 @@ define(["qlik", "ng!$q"],
 
                         },
                         items: {
+                            //"QlikView Sans", sans-serif
+                            /*
+                                                        customfont: {
+                                                            type: "string",
+                                                            ref: "customfont",
+                                                            label: "Custom Font",
+                                                            expression: "optional",
+                                                            defaultValue: "='Roboto, sans-serif'"
+                                                        },
+                            */
+                            customfont: {
+                                type: "string",
+                                component: "dropdown",
+                                label: "Custom Google Font",
+                                ref: "customfont",
+                                options: function() {
+                                    return getFontList().then(function(items) {
+                                        return items;
+                                    });
+                                },
+                                defaultValue: "Roboto"
+                            },
+
                             changesheettitle: {
                                 ref: "changesheettitle",
                                 label: "Change Sheet Title",
@@ -223,30 +357,10 @@ define(["qlik", "ng!$q"],
                                 ref: "titleHide",
                                 type: "boolean",
                                 component: "checkbox",
-                                label: "Hide Title",
+                                label: "Hide Title Bar",
                                 defaultValue: false
                             },
-                            titleimgwidth: {
-                                type: "number",
-                                component: "slider",
-                                label: "Sheet Title Image Width",
-                                ref: "titleimgwidth",
-                                min: 35,
-                                max: 198,
-                                step: 1,
-                                defaultValue: 35,
-                                show: function(data) {
-                                    if (data.titleHide) {
-                                        return false;
-                                    } else {
-                                        return true;
-                                    }
 
-                                }
-                                //end
-
-
-                            },
                             sheettitle: {
                                 type: "string",
                                 ref: "sheettitle",
@@ -300,6 +414,25 @@ define(["qlik", "ng!$q"],
 
                             },
 
+                            titleimgwidth: {
+                                type: "number",
+                                component: "slider",
+                                label: "Sheet Title Image Width",
+                                ref: "titleimgwidth",
+                                min: 35,
+                                max: 198,
+                                step: 1,
+                                defaultValue: 35,
+                                show: function(data) {
+                                    if (data.titleHide) {
+                                        return false;
+                                    } else {
+                                        return true;
+                                    }
+                                }
+                                //end
+                            },
+
                             sheetbackgroundcolororimg: {
                                 ref: "sheetbackgroundcolororimg",
                                 label: "Background Image",
@@ -340,7 +473,7 @@ define(["qlik", "ng!$q"],
                             sheetbackgroundimgurl: {
                                 type: "string",
                                 ref: "sheetbackgroundimgurl",
-                                label: "Sheet Background img url",
+                                label: "Sheet Background Image[url]",
                                 expression: "optional",
                                 defaultValue: 'url(/content/default/Qlik_default_orange.png)',
                                 show: function(data) {
@@ -355,7 +488,7 @@ define(["qlik", "ng!$q"],
                             gridcellactive: {
                                 type: "string",
                                 ref: "gridcellactive",
-                                label: "Sheet Grid Active color on edit mode",
+                                label: "Object Active color[edit mode only]",
                                 expression: "optional",
                                 defaultValue: '#fab761',
                                 show: function(data) {
@@ -367,13 +500,11 @@ define(["qlik", "ng!$q"],
 
                                 }
                             },
-
-
                         }
                     },
 
                     customstyling: {
-                        label: 'Object Styling & Settings',
+                        label: 'Object Styling & Advance Settings',
                         show: function(data) {
                             if (data.selectcustomstyle) {
                                 return false;
@@ -383,29 +514,49 @@ define(["qlik", "ng!$q"],
 
                         },
                         items: {
-
-
                             qvobjecttransparent: {
                                 ref: "qvobjecttransparent",
-                                label: "Transparent Object",
+                                //label: "Transparent Object",
+                                label: "Transparent all the objects?",
                                 type: "boolean",
                                 defaultValue: false
                             },
 
                             ignorekpiandtextbox: {
                                 ref: "ignorekpiandtextbox",
-                                label: "Ignore style for KPI and Text-Image Object",
+                                label: "Ignore style for KPI and Text-Image Object?",
                                 type: "boolean",
                                 defaultValue: false
+                            },
+							
+							qvobjectborder: {
+                                ref: "qvobjectborder",
+                                //label: "Transparent Object",
+                                label: "Add border to objects container?",
+                                type: "boolean",
+                                defaultValue: false
+                            },
+							qvobjectbordercss: {
+                                type: "string",
+                                ref: "qvobjectbordercss",
+                                label: "Object border css",
+                                expression: "optional",
+                                defaultValue: '1px solid rgb(68, 119, 170)'
+                            },
+							qvobjecttopmargin: {
+                                type: "string",
+                                ref: "qvobjecttopmargin",
+                                label: "Object Top Margin",
+                                expression: "optional",
+                                defaultValue: '1px'
                             },
                             customactionstyle: {
                                 ref: "customactionstyle",
                                 type: "boolean",
                                 component: "checkbox",
-                                label: "Custom Action Style",
+                                label: "Custom Action Style?",
                                 defaultValue: false
                             },
-
                             customactionbtntop: {
                                 type: "number",
                                 component: "slider",
@@ -414,7 +565,7 @@ define(["qlik", "ng!$q"],
                                 min: 1,
                                 max: 100,
                                 step: 1,
-                                defaultValue: 1,
+                                defaultValue: 50,
                                 show: function(data) {
                                     if (data.customactionstyle) {
                                         return true;
@@ -425,25 +576,24 @@ define(["qlik", "ng!$q"],
                                 }
 
                             },
-
                             headerbgcolor: {
                                 type: "string",
                                 ref: "headerbgcolor",
-                                label: "Header Background color",
+                                label: "Object Title Background color",
                                 expression: "optional",
                                 defaultValue: '#4477aa'
                             },
                             headercolor: {
                                 type: "string",
                                 ref: "headercolor",
-                                label: "Header color",
+                                label: "Object Title color",
                                 expression: "optional",
                                 defaultValue: '#fff'
                             },
                             headerfontsize: {
                                 type: "number",
                                 component: "slider",
-                                label: "Header Font Size",
+                                label: "Object Title Font Size",
                                 ref: "headerfontsize",
                                 min: 10,
                                 max: 100,
@@ -454,7 +604,7 @@ define(["qlik", "ng!$q"],
                             headerfontweight: {
                                 type: "number",
                                 component: "slider",
-                                label: "Header Font Width",
+                                label: "Object Title Font Width",
                                 ref: "headerfontweight",
                                 min: 300,
                                 max: 900,
@@ -466,7 +616,7 @@ define(["qlik", "ng!$q"],
                             headerpaddingtop: {
                                 type: "number",
                                 component: "slider",
-                                label: "Header Padding Top",
+                                label: "Object Title Padding Top",
                                 ref: "headerpaddingtop",
                                 min: 0,
                                 max: 100,
@@ -477,7 +627,7 @@ define(["qlik", "ng!$q"],
                             headerpaddingbottom: {
                                 type: "number",
                                 component: "slider",
-                                label: "Header Padding Bottom",
+                                label: "Object Title Padding Bottom",
                                 ref: "headerpaddingbottom",
                                 min: 0,
                                 max: 100,
@@ -488,7 +638,7 @@ define(["qlik", "ng!$q"],
                             headerpaddingright: {
                                 type: "number",
                                 component: "slider",
-                                label: "Header Padding Right",
+                                label: "Object Title Padding Right",
                                 ref: "headerpaddingright",
                                 min: 0,
                                 max: 100,
@@ -499,7 +649,7 @@ define(["qlik", "ng!$q"],
                             headerpaddingleft: {
                                 type: "number",
                                 component: "slider",
-                                label: "Header Padding Left",
+                                label: "Object Title Padding Left",
                                 ref: "headerpaddingleft",
                                 min: 0,
                                 max: 100,
@@ -511,20 +661,17 @@ define(["qlik", "ng!$q"],
                             containerbgcolor: {
                                 type: "string",
                                 ref: "containerbgcolor",
-                                label: "Object's Background Color",
+                                label: "Object's container Background Color",
                                 expression: "optional",
                                 defaultValue: '#fff'
                             },
                             actionbtncolor: {
                                 type: "string",
                                 ref: "actionbtncolor",
-                                label: "Action Button color after fullscreen",
+                                label: "Action Button color [after fullscreen]",
                                 expression: "optional",
                                 defaultValue: '#fff'
                             },
-
-
-
                             /*
 								icon: {
 									type: "string",
@@ -533,11 +680,10 @@ define(["qlik", "ng!$q"],
 									expression: "optional"
                             	},
 								*/
-
                         }
                     },
                     customstylingtable: {
-                        label: 'Table Styling & Settings',
+                        label: 'Table Styling & Advance Settings',
                         show: function(data) {
                             if (data.selectcustomstyle) {
                                 return false;
@@ -547,6 +693,17 @@ define(["qlik", "ng!$q"],
 
                         },
                         items: {
+						
+						
+						
+							 pivotsupport: {
+                                ref: "pivotsupport",
+                                type: "boolean",
+                                component: "checkbox",
+                                label: "Apply style for Pivot?",
+                                defaultValue: false
+                            },
+						
                             tablecolor: {
                                 type: "string",
                                 label: "Table color",
@@ -561,14 +718,14 @@ define(["qlik", "ng!$q"],
                                 defaultValue: "#c9cacc",
                                 expression: "optional"
                             },
-							tablehoverbgcolor: {
+                            tablehoverbgcolor: {
                                 type: "string",
                                 label: "Table Hover Background color",
                                 ref: "tablehoverbgcolor",
                                 defaultValue: "#c9cacc",
                                 expression: "optional"
                             },
-							tablehovercolor: {
+                            tablehovercolor: {
                                 type: "string",
                                 label: "Table Hover color",
                                 ref: "tablehovercolor",
@@ -583,7 +740,7 @@ define(["qlik", "ng!$q"],
                                 defaultValue: "#fff",
                                 expression: "optional"
                             },
-							
+
                             tabletotalbgcolor: {
                                 type: "string",
                                 label: "Total Top Background color",
@@ -591,15 +748,15 @@ define(["qlik", "ng!$q"],
                                 defaultValue: "#c9cacc",
                                 expression: "optional"
                             },
-							
-							 tabletotalhovercolor: {
+
+                            tabletotalhovercolor: {
                                 type: "string",
                                 label: "Total Top Hover color",
                                 ref: "tabletotalhovercolor",
                                 defaultValue: "#fff",
                                 expression: "optional"
                             },
-							
+
                             tabletotalhoverbgcolor: {
                                 type: "string",
                                 label: "Total Top Hover Background color",
@@ -607,7 +764,6 @@ define(["qlik", "ng!$q"],
                                 defaultValue: "#c9cacc",
                                 expression: "optional"
                             },
-														
 
                             tabletotalbottomcolor: {
                                 type: "string",
@@ -623,8 +779,8 @@ define(["qlik", "ng!$q"],
                                 defaultValue: "#c9cacc",
                                 expression: "optional"
                             },
-							
-							 tabletotalhoverbottomcolor: {
+
+                            tabletotalhoverbottomcolor: {
                                 type: "string",
                                 label: "Total Bottom Hover color",
                                 ref: "tabletotalhoverbottomcolor",
@@ -638,7 +794,7 @@ define(["qlik", "ng!$q"],
                                 defaultValue: "#c9cacc",
                                 expression: "optional"
                             },
-							
+
                             tableoddcolor: {
                                 type: "string",
                                 label: "Total Odd color",
@@ -653,11 +809,9 @@ define(["qlik", "ng!$q"],
                                 defaultValue: "#f2f2f2",
                                 expression: "optional"
                             },
-
-
                         }
                     },
-						// objects
+                    // objects
 
                     MyList2: {
                         type: "array",
@@ -668,13 +822,13 @@ define(["qlik", "ng!$q"],
                         allowRemove: true,
                         addTranslation: "Add Objects",
                         min: 1,
-						show: function(data) {
-                                    if (data.manualselectobj) {
-                                        return false;
-                                    } else {
-                                        return true;
-                                    }
-                                },
+                        show: function(data) {
+                            if (data.manualselectobj) {
+                                return false;
+                            } else {
+                                return true;
+                            }
+                        },
                         items: {
                             label: {
                                 type: "string",
@@ -687,8 +841,8 @@ define(["qlik", "ng!$q"],
                             // end
                         }
                     },
-					
-					
+
+
 
                     selectionbar: {
                         label: 'Selection Bar Styling & Settings',
@@ -711,7 +865,7 @@ define(["qlik", "ng!$q"],
 
                             selectionbarbg: {
                                 type: "string",
-                                label: "SelectionBar Background color",
+                                label: "Selection Bar Background color",
                                 ref: "prop.selectionbarbg",
                                 defaultValue: "#404b56",
                                 expression: "optional",
@@ -723,13 +877,10 @@ define(["qlik", "ng!$q"],
                                     }
 
                                 }
-
-
-
                             },
                             selectionbarbuttonbg: {
                                 type: "string",
-                                label: "SelectionBar Button Background color",
+                                label: "Selection Bar Button Background color",
                                 ref: "prop.selectionbarbuttonbg",
                                 defaultValue: "#404b56",
                                 expression: "optional",
@@ -761,7 +912,7 @@ define(["qlik", "ng!$q"],
 									*/
                             selectionbartextcolor: {
                                 type: "string",
-                                label: "SelectionBar Text color",
+                                label: "Selection Bar Text color",
                                 ref: "prop.selectionbartextcolor",
                                 defaultValue: "#ffffff",
                                 expression: "optional",
@@ -776,7 +927,7 @@ define(["qlik", "ng!$q"],
                             },
                             selectionbaritemcolor: {
                                 type: "string",
-                                label: "SelectionBar Item color",
+                                label: "Selection Bar Item color",
                                 ref: "prop.selectionbaritemcolor",
                                 defaultValue: "#ffffff",
                                 expression: "optional",
@@ -792,7 +943,7 @@ define(["qlik", "ng!$q"],
 
                             selectionbaritemhovercolor: {
                                 type: "string",
-                                label: "SelectionBar Item Hover color",
+                                label: "Selection Bar Item Hover color",
                                 ref: "prop.selectionbaritemhovercolor",
                                 defaultValue: "#404142",
                                 expression: "optional",
@@ -807,8 +958,20 @@ define(["qlik", "ng!$q"],
                             },
                         }
                     },
-                    
 
+                    exportlayout: {
+                        label: 'Export Layout',
+                        items: {
+                            selectionbarHide: {
+                                ref: "xportlayout",
+                                type: "boolean",
+                                component: "checkbox",
+                                label: "Show Layout Style",
+                                defaultValue: false
+                            },
+
+                        }
+                    }
                     // end
                 }
             },
@@ -820,23 +983,11 @@ define(["qlik", "ng!$q"],
             },
             paint: function($element, layout) {
 
-                var selectcustomstyle = layout.selectcustomstyle;
-
+                var selectcustomstyle = layout.selectcustomstyle,
+                    xportlayout = layout.xportlayout;
 
                 if (selectcustomstyle) {
                     $('#custom-Qs-selected').remove();
-
-                    /*
-					'text!./Theme/gray.css',
-					'text!./Theme/black-gray.css',
-					'text!./Theme/blue-gray.css',
-					'text!./Theme/green-gray.css',
-					'text!./Theme/dark.css',
-					'text!./Theme/dark-theme1.css',
-					'text!./Theme/dark-theme2.css',
-					'text!./Theme/dark-theme3.css'
-		
-					*/
 
                     if (layout.stylelist == '1') {
 
@@ -845,7 +996,7 @@ define(["qlik", "ng!$q"],
 
                     } else if (layout.stylelist == '2') {
 
-                        console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/black-gray.css');
+                        //  console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/black-gray.css');
 
                         if ($('#custom-Qs-selected').length >= 1) {
                             $('#custom-Qs-selected').remove();
@@ -858,7 +1009,7 @@ define(["qlik", "ng!$q"],
 
                     } else if (layout.stylelist == '3') {
 
-                        console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/blue-gray.css');
+                        //  console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/blue-gray.css');
 
                         if ($('#custom-Qs-selected').length >= 1) {
                             $('#custom-Qs-selected').remove();
@@ -871,7 +1022,7 @@ define(["qlik", "ng!$q"],
 
                     } else if (layout.stylelist == '4') {
 
-                        console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/green-gray.css');
+                        //  console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/green-gray.css');
 
                         if ($('#custom-Qs-selected').length >= 1) {
                             $('#custom-Qs-selected').remove();
@@ -884,7 +1035,7 @@ define(["qlik", "ng!$q"],
 
                     } else if (layout.stylelist == '5') {
 
-                        console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/dark.css');
+                        //   console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/dark.css');
 
                         if ($('#custom-Qs-selected').length >= 1) {
                             $('#custom-Qs-selected').remove();
@@ -897,7 +1048,7 @@ define(["qlik", "ng!$q"],
 
                     } else if (layout.stylelist == '6') {
 
-                        console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/dark-theme1.css');
+                        //   console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/dark-theme1.css');
 
                         if ($('#custom-Qs-selected').length >= 1) {
                             $('#custom-Qs-selected').remove();
@@ -910,7 +1061,7 @@ define(["qlik", "ng!$q"],
 
                     } else if (layout.stylelist == '7') {
 
-                        console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/dark-theme2.css');
+                        //    console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/dark-theme2.css');
 
                         if ($('#custom-Qs-selected').length >= 1) {
                             $('#custom-Qs-selected').remove();
@@ -923,7 +1074,7 @@ define(["qlik", "ng!$q"],
 
                     } else if (layout.stylelist == '8') {
 
-                        console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/dark-theme3.css');
+                        //   console.log(getBasePath() + '/extensions/QlikSense-Sheet-Styler-Lite/Theme/dark-theme3.css');
 
                         if ($('#custom-Qs-selected').length >= 1) {
                             $('#custom-Qs-selected').remove();
@@ -936,40 +1087,36 @@ define(["qlik", "ng!$q"],
 
                     }
 
-
-
-
                 } else {
 
                     var objectlist_lst = [];
 
                     function removeDuplicates(arr) {
-                        let unique_array = []
-                        for (let i = 0; i < arr.length; i++) {
+                        var unique_array = []
+                        for (var i = 0; i < arr.length; i++) {
                             if (unique_array.indexOf(arr[i]) == -1) {
                                 unique_array.push(arr[i])
                             }
                         }
                         return unique_array
                     }
-					
 
-					if(layout.manualselectobj){
-						$.each(layout.listItems, function(k, v) {
-							console.log(v.selectedSheetObj);
-							objectlist_lst.push(v.selectedSheetObj);
-                    	});
-						objectlist = removeDuplicates(objectlist_lst);
-						
-					}else{
-						$.each(layout.listItems2, function(k, v) {
-							console.log(v.selectedSheetObj);
-							objectlist1.push(v.selectedSheetObj);
-                    	});
-						objectlist = removeDuplicates(objectlist1);
-					}
-					
-                    console.log(objectlist);
+                    if (layout.manualselectobj) {
+                        $.each(layout.listItems, function(k, v) {
+                            //    console.log(v.selectedSheetObj);
+                            objectlist_lst.push(v.selectedSheetObj);
+                        });
+                        objectlist = removeDuplicates(objectlist_lst);
+
+                    } else {
+                        $.each(layout.listItems2, function(k, v) {
+                            //   console.log(v.selectedSheetObj);
+                            objectlist1.push(v.selectedSheetObj);
+                        });
+                        objectlist = removeDuplicates(objectlist1);
+                    }
+
+                    //  console.log(objectlist);
 
                     var headerbg = layout.headerbgcolor,
                         headercolor = layout.headercolor,
@@ -979,18 +1126,25 @@ define(["qlik", "ng!$q"],
                         tablebgcolor = layout.tablebgcolor,
                         tabletotalcolor = layout.tabletotalcolor,
                         tabletotalbgcolor = layout.tabletotalbgcolor,
-						tablehoverbgcolor= layout.tablehoverbgcolor,
-						tablehovercolor= layout.tablehovercolor,
-						tabletotalhoverbgcolor= layout.tabletotalhoverbgcolor,
-						tabletotalhovercolor= layout.tabletotalhovercolor,
-						tabletotalhoverbottombgcolor= layout.tabletotalhoverbottombgcolor,
-						tabletotalhoverbottomcolor= layout.tabletotalhoverbottomcolor,
+                        tablehoverbgcolor = layout.tablehoverbgcolor,
+                        tablehovercolor = layout.tablehovercolor,
+                        tabletotalhoverbgcolor = layout.tabletotalhoverbgcolor,
+                        tabletotalhovercolor = layout.tabletotalhovercolor,
+                        tabletotalhoverbottombgcolor = layout.tabletotalhoverbottombgcolor,
+                        tabletotalhoverbottomcolor = layout.tabletotalhoverbottomcolor,
                         tabletotalbottombgcolor = layout.tabletotalbottombgcolor,
                         tabletotalbottomcolor = layout.tabletotalbottomcolor,
                         tableevencolor = layout.tableevencolor,
                         tableoddcolor = layout.tableoddcolor;
 
                     var basestyle = '';
+
+                    var font = layout.customfont;
+                    font.replace(/\s /g, '+');
+
+                    basestyle += "@import url('https://fonts.googleapis.com/css?family=" + font + "');";
+
+                    //  console.log("Font is :", font);
 
 
                     //console.log(objectlist);
@@ -1000,25 +1154,23 @@ define(["qlik", "ng!$q"],
                     if (layout.sheetbackgroundcolororimg) {
 
                         if (layout.sheetbackgroundimage == '' || layout.sheetbackgroundimage == undefined || layout.sheetbackgroundimage == 'undefined') {
-                            console.log('content img : ' + layout.sheetbackgroundimgurl);
+                            //   console.log('content img : ' + layout.sheetbackgroundimgurl);
                             basestyle += ' .qvt-sheet{ background:' + layout.sheetbackgroundimgurl + ' !important; }   \n ';
                         } else {
-                            console.log('url img : ' + layout.sheetbackgroundimage);
+                            //     console.log('url img : ' + layout.sheetbackgroundimage);
                             basestyle += ' .qvt-sheet{background:url(' + layout.sheetbackgroundimage + ') !important;   }   \n ';
                         }
 
                     } else {
-                        console.log('bg color : ' + layout.sheetbackground);
+                        //   console.log('bg color : ' + layout.sheetbackground);
                         basestyle += ' .qvt-sheet{ background:' + layout.sheetbackground + ' !important;   }  \n ';
                     }
-
 
                     // qv-gridcell active
                     basestyle += '#grid .qv-gridcell.active{ border: 2px solid ' + layout.gridcellactive + ' !important; }';
 
                     // title img
                     $('.sheet-title-logo-img img').css("width", layout.titleimgwidth);
-
 
                     // hide title
                     if (layout.titleHide) {
@@ -1056,13 +1208,11 @@ define(["qlik", "ng!$q"],
                     basestyle += ' .qv-panel-current-selections .item {  color: ' + layout.prop.selectionbartextcolor + ' } \n';
                     basestyle += ' .qv-panel-current-selections .item:hover{ background-color: ' + layout.prop.selectionbaritemhovercolor + ' } \n';
 
-
                     /* basic styling */
 
                     if (layout.qvobjecttransparent) {
                         basestyle += '.qv-object{ background: transparent !important; }';
                     }
-
 
                     $.each(objectlist, function(k, v) {
 
@@ -1087,8 +1237,6 @@ define(["qlik", "ng!$q"],
                             basestyle += '.qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}';
 
                             basestyle += '.qv-object-nav > a.border{border-radius: 0% !important;}';
-
-
 
                             basestyle += '.sheet-grid article.qv-object-filterpane .qv-object-nav {top: 45px !important;}';
                             basestyle += '.sheet-grid.grid-wrap-zoom-cell article.qv-object-filterpane .qv-object-nav {top: -5px !important;}';
@@ -1116,79 +1264,137 @@ define(["qlik", "ng!$q"],
                             if (v == 'kpi' || v == 'text-image') {
                                 basestyle += '.qv-object-' + v + ' .qv-object-content-container { border: 1px solid #d7cfcf !important;}\n';
                                 basestyle += 'article.qv-object-' + v + ' { background: ' + containerbgcolor + '; }';
-
                             } else {
                                 basestyle += 'article.qv-object-' + v + ' .qv-inner-object header{background: ' + headerbg + '; text-transform: capitalize; padding:0px;  }\n';
-                                basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h1.qv-object-title {color: ' + headercolor + ';font-weight: ' + layout.headerfontweight + ' !important;font-size: ' + layout.headerfontsize + 'px;}\n';
+                                basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h1.qv-object-title {color: ' + headercolor + '!important ;font-weight: ' + layout.headerfontweight + ' !important;font-size: ' + layout.headerfontsize + 'px;}\n';
                                 basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: ' + layout.headerpaddingtop + 'px ' + layout.headerpaddingright + 'px ' + layout.headerpaddingbottom + 'px ' + layout.headerpaddingleft + 'px;}\n';
-                                basestyle += '.grid-wrap-zoom-cell .qv-object-' + v + ' .qv-object-content-container {margin-top: 5px !important;}\n';
-                                basestyle += '.qv-object-' + v + ' .qv-object-content-container {margin-top: 2px !important; border: 1px solid #d7cfcf !important;}\n';
+                                basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h2.qv-object-subtitle  {color: ' + headercolor + ';   padding: 0 0 0 ' + layout.headerpaddingleft + 'px; }\n';
+                               	basestyle += '.qv-object-' + v + ' .qv-object-content-container {margin-top: '+layout.qvobjecttopmargin+' !important; }\n';
+								// object border 
+								if(layout.qvobjectborder){
+									 basestyle += '.qv-object-' + v + ' .qv-object-content-container {  border: '+layout.qvobjectbordercss+' !important;}\n';
+								}else{
+									basestyle += '.qv-object-' + v + ' .qv-inner-object  {border: '+layout.qvobjectbordercss+' !important;}\n';
+								} 
                                 basestyle += '.grid-wrap-zoom-cell .qv-object-' + v + ' .qv-object-nav.zero-top > a {color: ' + actionbtncolor + ' !important;}\n';
                                 basestyle += 'article.qv-object-' + v + ' .qv-inner-object { background: ' + containerbgcolor + '; }';
-								
-								
-
                             }
 
                         } else {
-
                             basestyle += 'article.qv-object-' + v + ' .qv-inner-object header{background: ' + headerbg + '; text-transform: capitalize; padding:0px;  }\n';
                             basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h1.qv-object-title {color: ' + headercolor + ';font-weight: ' + layout.headerfontweight + ' !important;font-size: ' + layout.headerfontsize + 'px;}\n';
                             basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h1.qv-object-title .qv-object-title-text{padding: ' + layout.headerpaddingtop + 'px ' + layout.headerpaddingright + 'px ' + layout.headerpaddingbottom + 'px ' + layout.headerpaddingleft + 'px;}\n';
-                            basestyle += '.grid-wrap-zoom-cell .qv-object-' + v + ' .qv-object-content-container {margin-top: 5px !important;}\n';
-                            basestyle += '.qv-object-' + v + ' .qv-object-content-container {margin-top: 2px !important; border: 1px solid #d7cfcf !important;}\n';
+                            basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h2.qv-object-subtitle  {color: ' + headercolor + ';   padding: 0 0 0 ' + layout.headerpaddingleft + 'px; }\n';
+                           	basestyle += '.qv-object-' + v + ' .qv-object-content-container {margin-top: '+layout.qvobjecttopmargin+' !important; }\n';
+							
+							// object border 
+							if(layout.qvobjectborder){
+									basestyle += '.qv-object-' + v + ' .qv-object-content-container {  border: '+layout.qvobjectbordercss+' !important;}\n';
+							}else{
+									basestyle += '.qv-object-' + v + ' .qv-inner-object  {border: '+layout.qvobjectbordercss+' !important;}\n';
+							} 
                             basestyle += '.grid-wrap-zoom-cell .qv-object-' + v + ' .qv-object-nav.zero-top > a {color: ' + actionbtncolor + ' !important;}\n';
-                            basestyle += 'article.qv-object-' + v + ' .qv-inner-object { background: ' + containerbgcolor + '; }';
-
-
+                            basestyle += 'article.qv-object-' + v + ' .qv-inner-object { background: ' + containerbgcolor + '; }'
                         }
 
 
                     });
                     /* end basic styling */
-
-
                     /*table css*/
-
                     // th column name
                     basestyle += '.qv-st-header-wrapper tr:nth-child(1) {background: ' + tablebgcolor + ' !important; color: ' + tablecolor + ' !important;}';
                     // th total column
                     basestyle += '.qv-st-header-wrapper tr:nth-child(2) {background: ' + tabletotalbgcolor + ' !important; color: ' + tabletotalcolor + ' !important;}';
                     // total culumn buttom
                     basestyle += '.qv-st-bottom-header tr{ background: ' + tabletotalbottombgcolor + ' !important;color: ' + tabletotalbottomcolor + ' !important; }';
-                    // pivot
-                    basestyle += '.qv-object-pivot-table .qv-inner-object table tr:nth-child(1) {background: ' + tablebgcolor + '; color: ' + tablecolor + ' !important;}';
-                    // odd
+                   if(layout.pivotsupport){
+				    // pivot
+                   		basestyle += '.qv-object-pivot-table .qv-inner-object table tr:nth-child(1) {background: ' + tablebgcolor + '; color: ' + tablecolor + ' !important;}';
+				   }
+				   // odd
                     basestyle += '.qv-object-table .qv-inner-object .qv-object-content-container .qv-grid-object-scroll-area table tr:nth-child(even) {background: ' + tableevencolor + ' !important;}';
                     //even
                     basestyle += '.qv-object-table .qv-inner-object .qv-object-content-container .qv-grid-object-scroll-area table tr:nth-child(odd) {background: ' + tableoddcolor + ' !important;}';
-					// hover
-					basestyle += '.qv-st-header-wrapper tr:nth-child(1) :hover {background: ' + tablehoverbgcolor + ' !important; color: ' + tablehovercolor + ' !important;}';
+                    // hover
+                    basestyle += '.qv-st-header-wrapper tr:nth-child(1) :hover {background: ' + tablehoverbgcolor + ' !important; color: ' + tablehovercolor + ' !important;}';
                     basestyle += '.qv-st-header-wrapper tr:nth-child(2) :hover {background: ' + tabletotalhoverbgcolor + ' !important; color: ' + tabletotalhovercolor + ' !important;}';
-                   	
-					basestyle += '.qv-st-bottom-header tr :hover{ background: ' + tabletotalhoverbottombgcolor + ' !important; color: ' + tabletotalhoverbottomcolor + ' !important; }';
-             
-			 
-					//
+
+                    basestyle += '.qv-st-bottom-header tr :hover{ background: ' + tabletotalhoverbottombgcolor + ' !important; color: ' + tabletotalhoverbottomcolor + ' !important; }';
+
                     /*end table css*/
 
+                    /* html document font style */
 
+                    // 'QlikView Sans', sans-serif
+
+
+                    //basestyle += '@import url(https://fonts.googleapis.com/css?family=Roboto:400,500);';
+
+                    basestyle += 'body,input,textarea,keygen,select,button,isindex {	font-family: ' + layout.customfont + ' !important; }';
+                    basestyle += ' .qv-selection-toolbar {	font-family: ' + layout.customfont + ' !important;  } ';
+                    basestyle += ' .qv-progress-bar {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-panel-current-selections {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-object *{	font-family: ' + layout.customfont + ' !important;	} ';
+                  //  basestyle += '.qv-object .qv-object-header {	font-family: ' + layout.customfont + ' !important;	} ';
+                  //  basestyle += '.qv-object .qv-object-subtitle {	font-family: ' + layout.customfont + ' !important;	} ';
+                  //  basestyle += '.qv-object .qv-object-footnote {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-object .lui-icon, .qv-object .lui-caret, .qv-object .lui-checkbox__check {  font-family: "LUI icons" !important;	}';
+                    basestyle += '.qv-chart-component {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-tooltip {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-listbox {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qui-immidiateContextual {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qui-delayedModal {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-object-info-mobile .qv-mi-toolbar .qv-mi-toolbar-close,.qv-object-info-mobile .qv-mi-toolbar .qv-mi-toolbar-title {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-global-selections {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-global-search {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-mobile-print .qv-mp-toolbar .qv-mp-toolbar-confirm,.qv-mobile-print .qv-mp-toolbar .qv-mp-toolbar-close {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-mobile-selections .qv-ms-toolbar .qv-ms-toolbar-close {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-odag-bar {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-odag-bar .leftOdag .list .odag-nav-point .nav-point-container .odag-nav-point-cell {	font-family: ' + layout.customfont + ' !important; }	 ';
+                    basestyle += '.odag-toolbar-navpoint-popover {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.odag-request-menu {	font-family: ' + layout.customfont + ' !important;	} ';
+                    basestyle += '.qv-small-av .qv-tbar .qv-bm-toolbar-close {	font-family: ' + layout.customfont + ' !important;	} ';
+					// end font
+					
                     basestyle += '.qv-object-QlikSense-Sheet-Styler-Lite ~ .qv-object-nav>a {  display: none;  }   .qv-object-QlikSense-Sheet-Styler-Lite .qv-object-nav>a {  display: none;  }';
 
+                    /* for gap in objects */
+                    basestyle += '.sheet-grid .qv-gridcell{  border: 0px solid rgba(0, 0, 0, 0) !important;   }';
 
+                    /* for fa icon fix in objects */
+                    basestyle += '.fa {	font-family: FontAwesome !important;  }';
 
-                    $('#custom-Qs').remove();
-                    $('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
+                    // $('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
 
-                    $(this).hide();
+                    console.time('add style start #2');
+                    console.timeEnd('add style start #2');
 
+                    if ($("#custom-Qs").length == 0) {
 
+                        $('#custom-Qs').remove();
+                        $('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
 
+                        $('head').append('<link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet">');
+
+                    }
+					
+                    console.time('add style end #2');
+                    console.timeEnd('add style end #2');
+					
+                    $element.html('<textarea id="xportcsstext" class="simple-textarea lui-textarea" rows="10">' + basestyle + '</textarea>');
+
+                    $(".qv-object-QlikSense-Sheet-Styler-Lite .qv-object-header").hide();
+
+                    if (!xportlayout) {
+                        $(this).hide();
+                        $("#xportcsstext").hide();
+                    }
+					
+                    console.time('qlik Function start #2');
+                    console.timeEnd('qlik Function start #2');
+                    // end
                 }
-
-
 
             }
         };
-
     });
