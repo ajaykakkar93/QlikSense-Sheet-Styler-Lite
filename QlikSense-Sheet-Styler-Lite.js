@@ -343,8 +343,8 @@ define(["qlik", "ng!$q"],
                                     return getFontList().then(function(items) {
                                         return items;
                                     });
-                                },
-                                defaultValue: "Roboto"
+                                }
+				    //, defaultValue: "Roboto"
                             },
 
                             changesheettitle: {
