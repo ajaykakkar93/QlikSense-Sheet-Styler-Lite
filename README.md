@@ -243,7 +243,7 @@ Reason : old version of qlik sense use this link : <a target="_blank" href="http
 -->
 
 <Hr>
- <img src="./QlikSense-Sheet-Styler-Lite.gif" alt="3nd Version">
+ <img src="./x-QlikSense-Sheet-Styler-Lite.gif" alt="4nd Version">
  
  <hr>
 <center>
