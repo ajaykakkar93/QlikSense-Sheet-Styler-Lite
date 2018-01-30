@@ -38,6 +38,15 @@ color:#646464;font-weight:normal'>Advantage's in QS Styler Lite.</span></h3>
 color:#646464;font-weight:normal'>Select Style Type</span></span></h3>
 
 <ul type=disc>
+
+ <li class=MsoNormal style='color:#333333;line-height:normal;background:white'><span
+     style='font-size:10.5pt'>Custom Layout Style For Each Object</span>s:
+     select and add any visualization object based on ID to style it (basic style Only)</span></li>
+
+ <li class=MsoNormal style='color:#333333;line-height:normal;background:white'><span
+     style='font-size:10.5pt'>Show Object ID</span>s:
+     Get Object ID </span></li>
+	 
  <li class=MsoNormal style='color:#333333;line-height:normal;background:white'><span
      style='font-size:10.5pt'>Manually Select Object's and style them</span>e:
      select and add any visualization objects to style it</span></li>
