@@ -25,6 +25,73 @@ define(["qlik", "ng!$q"],
             objectlist = [];
         var sheetId = qlik.navigation.getCurrentSheetId().sheetId;
         var app = qlik.currApp();
+
+
+        function resizeGrid(rows, cols) {
+
+            app.getObject(sheetId).then(function(obj) {
+                obj.applyPatches([{
+                        qOp: 'replace',
+                        qPath: '/columns',
+                        qValue: '"' + cols + '"'
+                    },
+                    {
+                        qPath: '/rows',
+                        qOp: 'replace',
+                        qValue: '"' + rows + '"'
+                    }
+                ], false);
+
+            }).then(function() {
+                app.doSave();
+            });
+        }
+        // end resizeGrid()
+
+
+        var input_rows = {
+            ref: "sheetrows",
+            label: "Number of rows",
+            type: "integer",
+            defaultValue: "12"
+        };
+
+        var input_cols = {
+            ref: "sheetcols",
+            label: "Number of columns",
+            type: "integer",
+            defaultValue: "24"
+        };
+
+        var actionbutton = {
+            label: "Resize Sheet",
+            component: "button",
+            action: function(data) {
+                console.log('Resize screen :- rows : ' + data.sheetrows + ', cols : ' + data.sheetcols);
+                resizeGrid(data.sheetrows, data.sheetcols);
+            }
+        };
+
+        var screenresizer = {
+            component: "items",
+            label: "Screen Resizer(use at your own Risk)",
+            items: {
+                //screenresizer : {
+                //type : "items",
+                //label : "Screen Resizer(use carefully)",
+                //items : {
+                input_rows: input_rows,
+                input_cols: input_cols,
+                actionbtn: actionbutton
+                //}
+                //}
+            }
+        };
+
+        // exit
+
+
+
         var getSheetList = function() {
             var defer = ng.defer();
             app.getAppObjectList('sheet', function(reply) {
@@ -47,6 +114,28 @@ define(["qlik", "ng!$q"],
             return defer.promise;
         };
 
+        var getSheetobjidList = function() {
+            var defer = ng.defer();
+            app.getAppObjectList('sheet', function(reply) {
+                var str = "";
+                $.each(reply.qAppObjectList.qItems, function(key, value) {
+                    var sheet = value.qInfo.qId + '';
+                    if (sheet == sheetId) {
+                        var objlist = [];
+                        //str += value.qData.title + ' ';
+                        $.each(value.qData.cells, function(k, v) {
+                            objlist.push({
+                                value: v.name,
+                                label: v.name,
+                            });
+                        });
+                        return defer.resolve(objlist);
+                    }
+                });
+            });
+            return defer.promise;
+        };
+
         var objectlst = {
             type: "string",
             component: "dropdown",
@@ -58,6 +147,20 @@ define(["qlik", "ng!$q"],
                 });
             }
         };
+
+        var objectlst2 = {
+            type: "string",
+            component: "dropdown",
+            label: "Select Objects in Current Sheet to apply Style",
+            ref: "selectedSheetObj",
+            options: function() {
+                return getSheetobjidList().then(function(items) {
+                    return items;
+                });
+            }
+        };
+
+
 
         function getBasePath() {
             var prefix = window.location.pathname.substr(0, window.location.pathname.toLowerCase().lastIndexOf("/sense") + 1);
@@ -208,7 +311,8 @@ define(["qlik", "ng!$q"],
         return {
             initialProperties: {
                 listItems: [],
-                listItems2: []
+                listItems2: [],
+                listItems3: []
             },
             definition: {
                 type: "items",
@@ -217,8 +321,184 @@ define(["qlik", "ng!$q"],
                     selectstyle: {
                         label: 'Select Style Type',
                         items: {
-								
-							selectionbarHide: {
+
+                            CustomLayoutforobjects: {
+                                ref: "CustomLayoutforobjects",
+                                type: "boolean",
+                                component: "checkbox",
+                                label: "Custom Layout Style For Each Object",
+                                defaultValue: false
+                            },
+
+                            getobjectidbadge: {
+                                ref: "getobjectidbadge",
+                                type: "boolean",
+                                component: "checkbox",
+                                label: "Show Object ID",
+                                defaultValue: false,
+                                show: function(data) {
+                                    if (data.CustomLayoutforobjects) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+                                }
+                            },
+
+                            // CustomLayoutforobjects start
+
+                            MyList3: {
+                                type: "array",
+                                ref: "listItems3",
+                                label: "Style Objects Manually",
+                                itemTitleRef: "label",
+                                allowAdd: true,
+                                allowRemove: true,
+                                addTranslation: "Add Objects",
+                                min: 1,
+                                show: function(data) {
+                                    if (data.CustomLayoutforobjects) {
+                                        return true;
+                                    } else {
+                                        return false;
+                                    }
+
+                                },
+                                items: {
+                                    label: {
+                                        type: "string",
+                                        ref: "label",
+                                        label: "Label",
+                                        expression: "optional"
+                                    },
+                                    // start
+                                    objectlst: objectlst2,
+
+
+                                    headerbgcolor: {
+                                        type: "string",
+                                        ref: "headerbgcolor",
+                                        label: "Object Title Background color",
+                                        expression: "optional",
+                                        defaultValue: '#4477aa'
+                                    },
+                                    headercolor: {
+                                        type: "string",
+                                        ref: "headercolor",
+                                        label: "Object Title color",
+                                        expression: "optional",
+                                        defaultValue: '#fff'
+                                    },
+                                    headerfontsize: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Font Size",
+                                        ref: "headerfontsize",
+                                        min: 10,
+                                        max: 100,
+                                        step: 1,
+                                        defaultValue: 15
+
+                                    },
+                                    headerfontweight: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Font Width",
+                                        ref: "headerfontweight",
+                                        min: 300,
+                                        max: 900,
+                                        step: 1,
+                                        defaultValue: 300
+
+                                    },
+
+                                    headertextalin: {
+                                        type: "string",
+                                        component: "dropdown",
+                                        label: "Title Text Align",
+                                        ref: "headertextalin",
+                                        options: [{
+                                                value: "Left",
+                                                label: "Left"
+                                            },
+                                            {
+                                                value: "Right",
+                                                label: "Right"
+                                            },
+                                            {
+                                                value: "Center",
+                                                label: "Center"
+                                            }
+                                        ]
+                                    },
+
+
+
+                                    headerpaddingtop: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Padding Top",
+                                        ref: "headerpaddingtop",
+                                        min: 0,
+                                        max: 100,
+                                        step: 1,
+                                        defaultValue: 11
+
+                                    },
+                                    headerpaddingbottom: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Padding Bottom",
+                                        ref: "headerpaddingbottom",
+                                        min: 0,
+                                        max: 100,
+                                        step: 1,
+                                        defaultValue: 11
+
+                                    },
+                                    headerpaddingright: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Padding Right",
+                                        ref: "headerpaddingright",
+                                        min: 0,
+                                        max: 100,
+                                        step: 1,
+                                        defaultValue: 11
+
+                                    },
+                                    headerpaddingleft: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Padding Left",
+                                        ref: "headerpaddingleft",
+                                        min: 0,
+                                        max: 100,
+                                        step: 1,
+                                        defaultValue: 11
+
+                                    },
+
+                                    containerbgcolor: {
+                                        type: "string",
+                                        ref: "containerbgcolor",
+                                        label: "Object's container Background Color",
+                                        expression: "optional",
+                                        defaultValue: '#fff'
+                                    },
+
+
+                                    // end
+
+
+
+                                }
+                            },
+
+                            // end
+
+
+                            xportlayout: {
                                 ref: "xportlayout",
                                 type: "boolean",
                                 component: "checkbox",
@@ -239,6 +519,9 @@ define(["qlik", "ng!$q"],
                                 type: "boolean",
                                 defaultValue: false
                             },
+
+
+
 
                             stylelist: {
                                 type: "string",
@@ -322,7 +605,7 @@ define(["qlik", "ng!$q"],
 
                     sheetsettings: {
                         label: 'Basic Sheet Settings',
-						component: "expandable-items",
+                        component: "expandable-items",
                         show: function(data) {
                             if (data.selectcustomstyle) {
                                 return false;
@@ -332,162 +615,163 @@ define(["qlik", "ng!$q"],
 
                         },
                         items: {
-						
-								
-								sheettitlesetting: {
-									type: "items",
-									label: "Sheet Title Settings",
-										items: {
-												
-												changesheettitle: {
-													ref: "changesheettitle",
-													label: "Change Sheet Title",
-													type: "boolean",
-													defaultValue: false
-												},
-												titleHide: {
-													ref: "titleHide",
-													type: "boolean",
-													component: "checkbox",
-													label: "Hide Title Bar",
-													defaultValue: false
-												},
 
-												sheettitle: {
-													type: "string",
-													ref: "sheettitle",
-													label: "Sheet Title",
-													expression: "optional",
-													show: function(data) {
-														if (data.titleHide) {
-															return false;
-														} else {
-															return true;
-														}
+                            sresizer: screenresizer,
 
-													}
-												},
-												titleheight: {
-													type: "number",
-													component: "slider",
-													label: "Sheet Title Height",
-													ref: "titleheight",
-													min: 15,
-													max: 200,
-													step: 1,
-													defaultValue: 36,
-													show: function(data) {
-														if (data.titleHide) {
-															return false;
-														} else {
-															return true;
-														}
+                            sheettitlesetting: {
+                                type: "items",
+                                label: "Sheet Title Settings",
+                                items: {
 
-													}
-												},
+                                    changesheettitle: {
+                                        ref: "changesheettitle",
+                                        label: "Change Sheet Title",
+                                        type: "boolean",
+                                        defaultValue: false
+                                    },
+                                    titleHide: {
+                                        ref: "titleHide",
+                                        type: "boolean",
+                                        component: "checkbox",
+                                        label: "Hide Title Bar",
+                                        defaultValue: false
+                                    },
 
-												titlefontsize: {
-													type: "number",
-													component: "slider",
-													label: "Sheet Title Font Size",
-													ref: "titlefontsize1",
-													min: 10,
-													max: 200,
-													step: 1,
-													defaultValue: 30,
-													show: function(data) {
-														if (data.titleHide) {
-															return false;
-														} else {
-															return true;
-														}
+                                    sheettitle: {
+                                        type: "string",
+                                        ref: "sheettitle",
+                                        label: "Sheet Title",
+                                        expression: "optional",
+                                        show: function(data) {
+                                            if (data.titleHide) {
+                                                return false;
+                                            } else {
+                                                return true;
+                                            }
 
-													}
+                                        }
+                                    },
+                                    titleheight: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Sheet Title Height",
+                                        ref: "titleheight",
+                                        min: 15,
+                                        max: 200,
+                                        step: 1,
+                                        defaultValue: 36,
+                                        show: function(data) {
+                                            if (data.titleHide) {
+                                                return false;
+                                            } else {
+                                                return true;
+                                            }
 
-												},
+                                        }
+                                    },
 
-												titleimgwidth: {
-													type: "number",
-													component: "slider",
-													label: "Sheet Title Image Width",
-													ref: "titleimgwidth",
-													min: 35,
-													max: 198,
-													step: 1,
-													defaultValue: 35,
-													show: function(data) {
-														if (data.titleHide) {
-															return false;
-														} else {
-															return true;
-														}
-													}
-													//end
-												},
-										}
-								},
-								
-								sheetbackgroundsetting: {
-									type: "items",
-									label: "Sheet Background Settings",
-										items: {
-												sheetbackgroundcolororimg: {
-													ref: "sheetbackgroundcolororimg",
-													label: "Background Image",
-													type: "boolean",
-													defaultValue: false
-												},
-												sheetbackground: {
-													type: "string",
-													ref: "sheetbackground",
-													label: "Sheet Background Color",
-													expression: "optional",
-													show: function(data) {
-														if (data.sheetbackgroundcolororimg) {
-															return false;
-														} else {
-															return true;
-														}
+                                    titlefontsize: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Sheet Title Font Size",
+                                        ref: "titlefontsize1",
+                                        min: 10,
+                                        max: 200,
+                                        step: 1,
+                                        defaultValue: 30,
+                                        show: function(data) {
+                                            if (data.titleHide) {
+                                                return false;
+                                            } else {
+                                                return true;
+                                            }
 
-													}
-												},
+                                        }
 
-												sheetbackgroundimage: {
-													label: "Sheet Background Image",
-													component: "media",
-													ref: "sheetbackgroundimage",
-													layoutRef: "sheetbackgroundimage",
-													type: "string",
-													show: function(data) {
-														if (data.sheetbackgroundcolororimg) {
-															return true;
-														} else {
-															return false;
-														}
+                                    },
 
-													}
-												},
+                                    titleimgwidth: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Sheet Title Image Width",
+                                        ref: "titleimgwidth",
+                                        min: 35,
+                                        max: 198,
+                                        step: 1,
+                                        defaultValue: 35,
+                                        show: function(data) {
+                                            if (data.titleHide) {
+                                                return false;
+                                            } else {
+                                                return true;
+                                            }
+                                        }
+                                        //end
+                                    },
+                                }
+                            },
 
-												sheetbackgroundimgurl: {
-													type: "string",
-													ref: "sheetbackgroundimgurl",
-													label: "Sheet Background Image[url]",
-													expression: "optional",
-													defaultValue: 'url(/content/default/Qlik_default_orange.png)',
-													show: function(data) {
-														if (data.sheetbackgroundcolororimg) {
-															return true;
-														} else {
-															return false;
-														}
+                            sheetbackgroundsetting: {
+                                type: "items",
+                                label: "Sheet Background Settings",
+                                items: {
+                                    sheetbackgroundcolororimg: {
+                                        ref: "sheetbackgroundcolororimg",
+                                        label: "Background Image",
+                                        type: "boolean",
+                                        defaultValue: false
+                                    },
+                                    sheetbackground: {
+                                        type: "string",
+                                        ref: "sheetbackground",
+                                        label: "Sheet Background Color",
+                                        expression: "optional",
+                                        show: function(data) {
+                                            if (data.sheetbackgroundcolororimg) {
+                                                return false;
+                                            } else {
+                                                return true;
+                                            }
 
-													}
-												},
-										
-										}
-								},
-								
-						
+                                        }
+                                    },
+
+                                    sheetbackgroundimage: {
+                                        label: "Sheet Background Image",
+                                        component: "media",
+                                        ref: "sheetbackgroundimage",
+                                        layoutRef: "sheetbackgroundimage",
+                                        type: "string",
+                                        show: function(data) {
+                                            if (data.sheetbackgroundcolororimg) {
+                                                return true;
+                                            } else {
+                                                return false;
+                                            }
+
+                                        }
+                                    },
+
+                                    sheetbackgroundimgurl: {
+                                        type: "string",
+                                        ref: "sheetbackgroundimgurl",
+                                        label: "Sheet Background Image[url]",
+                                        expression: "optional",
+                                        defaultValue: 'url(/content/default/Qlik_default_orange.png)',
+                                        show: function(data) {
+                                            if (data.sheetbackgroundcolororimg) {
+                                                return true;
+                                            } else {
+                                                return false;
+                                            }
+
+                                        }
+                                    },
+
+                                }
+                            },
+
+
                             //"QlikView Sans", sans-serif
                             /*
                                                         customfont: {
@@ -511,7 +795,7 @@ define(["qlik", "ng!$q"],
                                 //,defaultValue: "Roboto"
                             },
 
-                            
+
                             gridcellactive: {
                                 type: "string",
                                 ref: "gridcellactive",
@@ -519,13 +803,13 @@ define(["qlik", "ng!$q"],
                                 expression: "optional",
                                 defaultValue: '#fab761'
                             },
-							
+
                         }
                     },
 
                     customstyling: {
                         label: 'Object Styling & Advance Settings',
-						component: "expandable-items",
+                        component: "expandable-items",
                         show: function(data) {
                             if (data.selectcustomstyle) {
                                 return false;
@@ -535,215 +819,215 @@ define(["qlik", "ng!$q"],
 
                         },
                         items: {
-						
-							 basicobjectsettings: {
-								type: "items",
-								label: "Basic object Settings",
-								items: {
-									
-									qvobjecttransparent: {
-										ref: "qvobjecttransparent",
-										//label: "Transparent Object",
-										label: "Transparent all the objects?",
-										type: "boolean",
-										defaultValue: false
-									},
 
-									ignorekpiandtextbox: {
-										ref: "ignorekpiandtextbox",
-										label: "Ignore style for KPI and Text-Image Object?",
-										type: "boolean",
-										defaultValue: false
-									},
+                            basicobjectsettings: {
+                                type: "items",
+                                label: "Basic object Settings",
+                                items: {
 
-									qvobjectborder: {
-										ref: "qvobjectborder",
-										//label: "Transparent Object",
-										label: "Add border to objects container?",
-										type: "boolean",
-										defaultValue: false
-									},
-									qvobjectbordercss: {
-										type: "string",
-										ref: "qvobjectbordercss",
-										label: "Object border css",
-										expression: "optional",
-										defaultValue: '1px solid rgb(68, 119, 170)'
-									},
-									qvobjecttopmargin: {
-										type: "string",
-										ref: "qvobjecttopmargin",
-										label: "Object Top Margin",
-										expression: "optional",
-										defaultValue: '1px'
-									},
+                                    qvobjecttransparent: {
+                                        ref: "qvobjecttransparent",
+                                        //label: "Transparent Object",
+                                        label: "Transparent all the objects?",
+                                        type: "boolean",
+                                        defaultValue: false
+                                    },
 
-									
-								}
-							},
-							
-							 customactioniconsettings: {
-								type: "items",
-								label: "Custom Action Button Style",
-								items: {
-									  customactionstyle: {
-											ref: "customactionstyle",
-											type: "boolean",
-											component: "checkbox",
-											label: "Custom Action Style?",
-											defaultValue: false
-										},
-										customactionbtntop: {
-											type: "number",
-											component: "slider",
-											label: "Action Button Top Align",
-											ref: "customactionbtntop",
-											min: 1,
-											max: 100,
-											step: 1,
-											defaultValue: 50,
-											show: function(data) {
-												if (data.customactionstyle) {
-													return true;
-												} else {
-													return false;
-												}
+                                    ignorekpiandtextbox: {
+                                        ref: "ignorekpiandtextbox",
+                                        label: "Ignore style for KPI and Text-Image Object?",
+                                        type: "boolean",
+                                        defaultValue: false
+                                    },
 
-											}
+                                    qvobjectborder: {
+                                        ref: "qvobjectborder",
+                                        //label: "Transparent Object",
+                                        label: "Add border to objects container?",
+                                        type: "boolean",
+                                        defaultValue: false
+                                    },
+                                    qvobjectbordercss: {
+                                        type: "string",
+                                        ref: "qvobjectbordercss",
+                                        label: "Object border css",
+                                        expression: "optional",
+                                        defaultValue: '1px solid rgb(68, 119, 170)'
+                                    },
+                                    qvobjecttopmargin: {
+                                        type: "string",
+                                        ref: "qvobjecttopmargin",
+                                        label: "Object Top Margin",
+                                        expression: "optional",
+                                        defaultValue: '1px'
+                                    },
 
-										},
-										actionbtncolor: {
-											type: "string",
-											ref: "actionbtncolor",
-											label: "Action Button color [after fullscreen]",
-											expression: "optional",
-											defaultValue: '#fff'
-										},
-								}
-							},
-						
-						
-						
-						
-						  objectheadersettings: {
-							type: "items",
-							label: "Object Style",
-							items: {
-								headerbgcolor: {
-									type: "string",
-									ref: "headerbgcolor",
-									label: "Object Title Background color",
-									expression: "optional",
-									defaultValue: '#4477aa'
-								},
-								headercolor: {
-									type: "string",
-									ref: "headercolor",
-									label: "Object Title color",
-									expression: "optional",
-									defaultValue: '#fff'
-								},
-								headerfontsize: {
-									type: "number",
-									component: "slider",
-									label: "Object Title Font Size",
-									ref: "headerfontsize",
-									min: 10,
-									max: 100,
-									step: 1,
-									defaultValue: 15
 
-								},
-								headerfontweight: {
-									type: "number",
-									component: "slider",
-									label: "Object Title Font Width",
-									ref: "headerfontweight",
-									min: 300,
-									max: 900,
-									step: 1,
-									defaultValue: 300
+                                }
+                            },
 
-								},
-								
-								 headertextalin: {
-									type: "string",
-									component: "dropdown",
-									label: "Title Text Align",
-									ref: "headertextalin",
-									options: [{
-											value: "Left",
-											label: "Left"
-										},
-										{
-											value: "Right",
-											label: "Right"
-										},
-										{
-											value: "Center",
-											label: "Center"
-										}
-									]
-								},
-								
-								
+                            customactioniconsettings: {
+                                type: "items",
+                                label: "Custom Action Button Style",
+                                items: {
+                                    customactionstyle: {
+                                        ref: "customactionstyle",
+                                        type: "boolean",
+                                        component: "checkbox",
+                                        label: "Custom Action Style?",
+                                        defaultValue: false
+                                    },
+                                    customactionbtntop: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Action Button Top Align",
+                                        ref: "customactionbtntop",
+                                        min: 1,
+                                        max: 100,
+                                        step: 1,
+                                        defaultValue: 50,
+                                        show: function(data) {
+                                            if (data.customactionstyle) {
+                                                return true;
+                                            } else {
+                                                return false;
+                                            }
 
-								headerpaddingtop: {
-									type: "number",
-									component: "slider",
-									label: "Object Title Padding Top",
-									ref: "headerpaddingtop",
-									min: 0,
-									max: 100,
-									step: 1,
-									defaultValue: 11
+                                        }
 
-								},
-								headerpaddingbottom: {
-									type: "number",
-									component: "slider",
-									label: "Object Title Padding Bottom",
-									ref: "headerpaddingbottom",
-									min: 0,
-									max: 100,
-									step: 1,
-									defaultValue: 11
+                                    },
+                                    actionbtncolor: {
+                                        type: "string",
+                                        ref: "actionbtncolor",
+                                        label: "Action Button color [after fullscreen]",
+                                        expression: "optional",
+                                        defaultValue: '#fff'
+                                    },
+                                }
+                            },
 
-								},
-								headerpaddingright: {
-									type: "number",
-									component: "slider",
-									label: "Object Title Padding Right",
-									ref: "headerpaddingright",
-									min: 0,
-									max: 100,
-									step: 1,
-									defaultValue: 11
 
-								},
-								headerpaddingleft: {
-									type: "number",
-									component: "slider",
-									label: "Object Title Padding Left",
-									ref: "headerpaddingleft",
-									min: 0,
-									max: 100,
-									step: 1,
-									defaultValue: 11
 
-								},
 
-								containerbgcolor: {
-									type: "string",
-									ref: "containerbgcolor",
-									label: "Object's container Background Color",
-									expression: "optional",
-									defaultValue: '#fff'
-								},
-								
-							}
-						},
-						/*
+                            objectheadersettings: {
+                                type: "items",
+                                label: "Object Style",
+                                items: {
+                                    headerbgcolor: {
+                                        type: "string",
+                                        ref: "headerbgcolor",
+                                        label: "Object Title Background color",
+                                        expression: "optional",
+                                        defaultValue: '#4477aa'
+                                    },
+                                    headercolor: {
+                                        type: "string",
+                                        ref: "headercolor",
+                                        label: "Object Title color",
+                                        expression: "optional",
+                                        defaultValue: '#fff'
+                                    },
+                                    headerfontsize: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Font Size",
+                                        ref: "headerfontsize",
+                                        min: 10,
+                                        max: 100,
+                                        step: 1,
+                                        defaultValue: 15
+
+                                    },
+                                    headerfontweight: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Font Width",
+                                        ref: "headerfontweight",
+                                        min: 300,
+                                        max: 900,
+                                        step: 1,
+                                        defaultValue: 300
+
+                                    },
+
+                                    headertextalin: {
+                                        type: "string",
+                                        component: "dropdown",
+                                        label: "Title Text Align",
+                                        ref: "headertextalin",
+                                        options: [{
+                                                value: "Left",
+                                                label: "Left"
+                                            },
+                                            {
+                                                value: "Right",
+                                                label: "Right"
+                                            },
+                                            {
+                                                value: "Center",
+                                                label: "Center"
+                                            }
+                                        ]
+                                    },
+
+
+
+                                    headerpaddingtop: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Padding Top",
+                                        ref: "headerpaddingtop",
+                                        min: 0,
+                                        max: 100,
+                                        step: 1,
+                                        defaultValue: 11
+
+                                    },
+                                    headerpaddingbottom: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Padding Bottom",
+                                        ref: "headerpaddingbottom",
+                                        min: 0,
+                                        max: 100,
+                                        step: 1,
+                                        defaultValue: 11
+
+                                    },
+                                    headerpaddingright: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Padding Right",
+                                        ref: "headerpaddingright",
+                                        min: 0,
+                                        max: 100,
+                                        step: 1,
+                                        defaultValue: 11
+
+                                    },
+                                    headerpaddingleft: {
+                                        type: "number",
+                                        component: "slider",
+                                        label: "Object Title Padding Left",
+                                        ref: "headerpaddingleft",
+                                        min: 0,
+                                        max: 100,
+                                        step: 1,
+                                        defaultValue: 11
+
+                                    },
+
+                                    containerbgcolor: {
+                                        type: "string",
+                                        ref: "containerbgcolor",
+                                        label: "Object's container Background Color",
+                                        expression: "optional",
+                                        defaultValue: '#fff'
+                                    },
+
+                                }
+                            },
+                            /*
 								icon: {
 									type: "string",
 									ref: "iconname",
@@ -755,7 +1039,7 @@ define(["qlik", "ng!$q"],
                     },
                     customstylingtable: {
                         label: 'Table Styling & Advance Settings',
-						 component: "expandable-items",
+                        component: "expandable-items",
                         show: function(data) {
                             if (data.selectcustomstyle) {
                                 return false;
@@ -765,208 +1049,208 @@ define(["qlik", "ng!$q"],
 
                         },
                         items: {
-								Table: {
-									type: "items",
-									label: "Table",
-									items: {
-										// table
+                            Table: {
+                                type: "items",
+                                label: "Table",
+                                items: {
+                                    // table
 
 
-										tablecolor: {
-											type: "string",
-											label: "Table color",
-											ref: "tablecolor",
-											defaultValue: "#fff",
-											expression: "optional"
-										},
-										tablebgcolor: {
-											type: "string",
-											label: "Table Background color",
-											ref: "tablebgcolor",
-											defaultValue: "#c9cacc",
-											expression: "optional"
-										},
-										tablehoverbgcolor: {
-											type: "string",
-											label: "Table Hover Background color",
-											ref: "tablehoverbgcolor",
-											defaultValue: "#c9cacc",
-											expression: "optional"
-										},
-										tablehovercolor: {
-											type: "string",
-											label: "Table Hover color",
-											ref: "tablehovercolor",
-											defaultValue: "#fff",
-											expression: "optional"
-										},
+                                    tablecolor: {
+                                        type: "string",
+                                        label: "Table color",
+                                        ref: "tablecolor",
+                                        defaultValue: "#fff",
+                                        expression: "optional"
+                                    },
+                                    tablebgcolor: {
+                                        type: "string",
+                                        label: "Table Background color",
+                                        ref: "tablebgcolor",
+                                        defaultValue: "#c9cacc",
+                                        expression: "optional"
+                                    },
+                                    tablehoverbgcolor: {
+                                        type: "string",
+                                        label: "Table Hover Background color",
+                                        ref: "tablehoverbgcolor",
+                                        defaultValue: "#c9cacc",
+                                        expression: "optional"
+                                    },
+                                    tablehovercolor: {
+                                        type: "string",
+                                        label: "Table Hover color",
+                                        ref: "tablehovercolor",
+                                        defaultValue: "#fff",
+                                        expression: "optional"
+                                    },
 
-										tabletotalcolor: {
-											type: "string",
-											label: "Total Top color",
-											ref: "tabletotalcolor",
-											defaultValue: "#fff",
-											expression: "optional"
-										},
+                                    tabletotalcolor: {
+                                        type: "string",
+                                        label: "Total Top color",
+                                        ref: "tabletotalcolor",
+                                        defaultValue: "#fff",
+                                        expression: "optional"
+                                    },
 
-										tabletotalbgcolor: {
-											type: "string",
-											label: "Total Top Background color",
-											ref: "tabletotalbgcolor",
-											defaultValue: "#c9cacc",
-											expression: "optional"
-										},
+                                    tabletotalbgcolor: {
+                                        type: "string",
+                                        label: "Total Top Background color",
+                                        ref: "tabletotalbgcolor",
+                                        defaultValue: "#c9cacc",
+                                        expression: "optional"
+                                    },
 
-										tabletotalhovercolor: {
-											type: "string",
-											label: "Total Top Hover color",
-											ref: "tabletotalhovercolor",
-											defaultValue: "#fff",
-											expression: "optional"
-										},
+                                    tabletotalhovercolor: {
+                                        type: "string",
+                                        label: "Total Top Hover color",
+                                        ref: "tabletotalhovercolor",
+                                        defaultValue: "#fff",
+                                        expression: "optional"
+                                    },
 
-										tabletotalhoverbgcolor: {
-											type: "string",
-											label: "Total Top Hover Background color",
-											ref: "tabletotalhoverbgcolor",
-											defaultValue: "#c9cacc",
-											expression: "optional"
-										},
+                                    tabletotalhoverbgcolor: {
+                                        type: "string",
+                                        label: "Total Top Hover Background color",
+                                        ref: "tabletotalhoverbgcolor",
+                                        defaultValue: "#c9cacc",
+                                        expression: "optional"
+                                    },
 
-										tabletotalbottomcolor: {
-											type: "string",
-											label: "Total Bottom color",
-											ref: "tabletotalbottomcolor",
-											defaultValue: "#fff",
-											expression: "optional"
-										},
-										tabletotalbottombgcolor: {
-											type: "string",
-											label: "Total Bottom Background color",
-											ref: "tabletotalbottombgcolor",
-											defaultValue: "#c9cacc",
-											expression: "optional"
-										},
+                                    tabletotalbottomcolor: {
+                                        type: "string",
+                                        label: "Total Bottom color",
+                                        ref: "tabletotalbottomcolor",
+                                        defaultValue: "#fff",
+                                        expression: "optional"
+                                    },
+                                    tabletotalbottombgcolor: {
+                                        type: "string",
+                                        label: "Total Bottom Background color",
+                                        ref: "tabletotalbottombgcolor",
+                                        defaultValue: "#c9cacc",
+                                        expression: "optional"
+                                    },
 
-										tabletotalhoverbottomcolor: {
-											type: "string",
-											label: "Total Bottom Hover color",
-											ref: "tabletotalhoverbottomcolor",
-											defaultValue: "#fff",
-											expression: "optional"
-										},
-										tabletotalhoverbottombgcolor: {
-											type: "string",
-											label: "Total Bottom Hover Background color",
-											ref: "tabletotalhoverbottombgcolor",
-											defaultValue: "#c9cacc",
-											expression: "optional"
-										},
+                                    tabletotalhoverbottomcolor: {
+                                        type: "string",
+                                        label: "Total Bottom Hover color",
+                                        ref: "tabletotalhoverbottomcolor",
+                                        defaultValue: "#fff",
+                                        expression: "optional"
+                                    },
+                                    tabletotalhoverbottombgcolor: {
+                                        type: "string",
+                                        label: "Total Bottom Hover Background color",
+                                        ref: "tabletotalhoverbottombgcolor",
+                                        defaultValue: "#c9cacc",
+                                        expression: "optional"
+                                    },
 
-										tableoddcolor: {
-											type: "string",
-											label: "Total Odd color",
-											ref: "tableoddcolor",
-											defaultValue: "#ff",
-											expression: "optional"
-										},
-										tableevencolor: {
-											type: "string",
-											label: "Total Even color",
-											ref: "tableevencolor",
-											defaultValue: "#f2f2f2",
-											expression: "optional"
-										},
-										
-										
-									}
-								},
-								
-								
-								
-								PivotTable: {
-									type: "items",
-									label: "Pivot Table",
-									items: {
-									
-											pivotsupport: {
-												ref: "pivotsupport",
-												type: "boolean",
-												component: "checkbox",
-												label: "Apply style for Pivot?",
-												defaultValue: true
-											},
+                                    tableoddcolor: {
+                                        type: "string",
+                                        label: "Total Odd color",
+                                        ref: "tableoddcolor",
+                                        defaultValue: "#ff",
+                                        expression: "optional"
+                                    },
+                                    tableevencolor: {
+                                        type: "string",
+                                        label: "Total Even color",
+                                        ref: "tableevencolor",
+                                        defaultValue: "#f2f2f2",
+                                        expression: "optional"
+                                    },
 
-											// pivot
 
-											pivottablecolor: {
-												type: "string",
-												label: "Pivot Table color",
-												ref: "pivottablecolor",
-												defaultValue: "#fff",
-												expression: "optional",
-												show: function(data) {
-													if (data.pivotsupport) {
-														return true;
-													} else {
-														return false;
-													}
+                                }
+                            },
 
-												}
-											},
-											pivottablebgcolor: {
-												type: "string",
-												label: "Pivot Table Background color",
-												ref: "pivottablebgcolor",
-												defaultValue: "#c9cacc",
-												expression: "optional",
-												show: function(data) {
-													if (data.pivotsupport) {
-														return true;
-													} else {
-														return false;
-													}
 
-												}
-											},
-											pivottablehoverbgcolor: {
-												type: "string",
-												label: "Pivot Table Hover Background color",
-												ref: "tablehoverbgcolor",
-												defaultValue: "#c9cacc",
-												expression: "optional",
-												show: function(data) {
-													if (data.pivotsupport) {
-														return true;
-													} else {
-														return false;
-													}
 
-												}
-											},
-											pivottablehovercolor: {
-												type: "string",
-												label: "Pivot Table Hover color",
-												ref: "tablehovercolor",
-												defaultValue: "#fff",
-												expression: "optional",
-												show: function(data) {
-													if (data.pivotsupport) {
-														return true;
-													} else {
-														return false;
-													}
+                            PivotTable: {
+                                type: "items",
+                                label: "Pivot Table",
+                                items: {
 
-												}
-											},
-										
-										
-									}
-								}
-							
-							
-							
-							
+                                    pivotsupport: {
+                                        ref: "pivotsupport",
+                                        type: "boolean",
+                                        component: "checkbox",
+                                        label: "Apply style for Pivot?",
+                                        defaultValue: true
+                                    },
+
+                                    // pivot
+
+                                    pivottablecolor: {
+                                        type: "string",
+                                        label: "Pivot Table color",
+                                        ref: "pivottablecolor",
+                                        defaultValue: "#fff",
+                                        expression: "optional",
+                                        show: function(data) {
+                                            if (data.pivotsupport) {
+                                                return true;
+                                            } else {
+                                                return false;
+                                            }
+
+                                        }
+                                    },
+                                    pivottablebgcolor: {
+                                        type: "string",
+                                        label: "Pivot Table Background color",
+                                        ref: "pivottablebgcolor",
+                                        defaultValue: "#c9cacc",
+                                        expression: "optional",
+                                        show: function(data) {
+                                            if (data.pivotsupport) {
+                                                return true;
+                                            } else {
+                                                return false;
+                                            }
+
+                                        }
+                                    },
+                                    pivottablehoverbgcolor: {
+                                        type: "string",
+                                        label: "Pivot Table Hover Background color",
+                                        ref: "tablehoverbgcolor",
+                                        defaultValue: "#c9cacc",
+                                        expression: "optional",
+                                        show: function(data) {
+                                            if (data.pivotsupport) {
+                                                return true;
+                                            } else {
+                                                return false;
+                                            }
+
+                                        }
+                                    },
+                                    pivottablehovercolor: {
+                                        type: "string",
+                                        label: "Pivot Table Hover color",
+                                        ref: "tablehovercolor",
+                                        defaultValue: "#fff",
+                                        expression: "optional",
+                                        show: function(data) {
+                                            if (data.pivotsupport) {
+                                                return true;
+                                            } else {
+                                                return false;
+                                            }
+
+                                        }
+                                    },
+
+
+                                }
+                            }
+
+
+
+
                         }
                     },
                     // objects
@@ -999,8 +1283,6 @@ define(["qlik", "ng!$q"],
                             // end
                         }
                     },
-
-
 
                     selectionbar: {
                         label: 'Selection Bar Styling & Settings',
@@ -1128,12 +1410,43 @@ define(["qlik", "ng!$q"],
             },
             paint: function($element, layout) {
 
-
                 var selectcustomstyle = layout.selectcustomstyle,
                     xportlayout = layout.xportlayout;
 
-
-
+                if (layout.getobjectidbadge) {
+                    var badgestyle = '';
+                    badgestyle += '.custbadgeforid[data-badge]:after {';
+                    badgestyle += 'content:attr(data-badge);';
+                    badgestyle += 'position:absolute;';
+                    badgestyle += 'top:-10px;';
+                    badgestyle += 'right:-10px;';
+                    badgestyle += 'font-size:.9em;';
+                    badgestyle += 'background:green;';
+                    badgestyle += 'color:white;';
+                    badgestyle += '/*width:18px; */height:18px;';
+                    badgestyle += 'text-align:center;';
+                    badgestyle += 'line-height:18px;';
+                    badgestyle += 'border-radius:50%;';
+                    badgestyle += 'box-shadow:0 0 1px #333;';
+                    badgestyle += 'z-index:1050;     padding-left: 5px; padding-right: 5px;}';
+                    if ($('#custom-Qs-badge').length == 0) {
+                        $('<style id="custom-Qs-badge"></style>').html(badgestyle).appendTo('head');
+                    }
+                    var sheetId = qlik.navigation.getCurrentSheetId().sheetId;
+                    app.getAppObjectList('sheet', function(reply) {
+                        var str = "";
+                        $.each(reply.qAppObjectList.qItems, function(key, value) {
+                            var sheet = value.qInfo.qId + '';
+                            if (sheet == sheetId) {
+                                $.each(value.qData.cells, function(k, v) {
+                                    console.log(v.name);
+                                    $('div[tid="' + v.name + '"] header').addClass('custbadgeforid');
+                                    $('div[tid="' + v.name + '"] header').attr("data-badge", "" + v.name);
+                                });
+                            }
+                        });
+                    });
+                }
 
                 if (selectcustomstyle) {
                     $('#custom-Qs-selected').remove();
@@ -1299,11 +1612,10 @@ define(["qlik", "ng!$q"],
                     var font = layout.customfont;
                     font.replace(/\s /g, '+');
 
-                    basestyle += "@import url('https://fonts.googleapis.com/css?family=" + font + "');";
-
-                    //  console.log("Font is :", font);
-
-
+                    if (font == '' || font == undefined) {} else {
+                        console.log("Font is :", font);
+                        basestyle += "@import url('https://fonts.googleapis.com/css?family=" + font + "');";
+                    }
                     //console.log(objectlist);
 
                     // sheet background
@@ -1317,7 +1629,6 @@ define(["qlik", "ng!$q"],
                             //     console.log('url img : ' + layout.sheetbackgroundimage);
                             basestyle += ' .qvt-sheet{background:url(' + layout.sheetbackgroundimage + ') !important;   }   \n ';
                         }
-
                     } else {
                         //   console.log('bg color : ' + layout.sheetbackground);
                         basestyle += ' .qvt-sheet{ background:' + layout.sheetbackground + ' !important;   }  \n ';
@@ -1387,7 +1698,7 @@ define(["qlik", "ng!$q"],
 
                             /* change 50px dynamic */
                             basestyle += '.qv-object-nav{top: ' + layout.customactionbtntop + 'px !important;}';
-							
+
                             basestyle += '.grid-wrap-zoom-cell .qv-object-nav{top: 9px !important;right: 17px !important;}';
                             basestyle += '.grid-wrap-zoom-cell  .qv-object-nav > a {font-size: 15px !important;}';
                             basestyle += '.qv-object-nav > a {font-size: 12px !important;line-height: 14px !important;width: 14px !important;height: 14px !important;}';
@@ -1422,8 +1733,8 @@ define(["qlik", "ng!$q"],
                                 basestyle += 'article.qv-object-' + v + ' { background: ' + containerbgcolor + '; }';
                             } else {
                                 basestyle += 'article.qv-object-' + v + ' .qv-inner-object header{background: ' + headerbg + '; text-transform: capitalize; padding:0px;  }\n';
-								// edit here
-                                basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h1.qv-object-title { text-align:'+layout.headertextalin+' !important; padding: 0 0px 0 0 !important;  color: ' + headercolor + '!important ;  font-weight: ' + layout.headerfontweight + ' !important;  font-size: ' + layout.headerfontsize + 'px;}\n';
+                                // edit here
+                                basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h1.qv-object-title { text-align:' + layout.headertextalin + ' !important; padding: 0 0px 0 0 !important;  color: ' + headercolor + '!important ;  font-weight: ' + layout.headerfontweight + ' !important;  font-size: ' + layout.headerfontsize + 'px;}\n';
                                 basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h1.qv-object-title .qv-object-title-text{ width: 100%; padding: ' + layout.headerpaddingtop + 'px ' + layout.headerpaddingright + 'px ' + layout.headerpaddingbottom + 'px ' + layout.headerpaddingleft + 'px;}\n';
                                 basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h2.qv-object-subtitle  {color: ' + headercolor + ';   padding: 0 0 0 ' + layout.headerpaddingleft + 'px; }\n';
                                 basestyle += '.qv-object-' + v + ' .qv-object-content-container {margin-top: ' + layout.qvobjecttopmargin + ' !important; }\n';
@@ -1439,8 +1750,8 @@ define(["qlik", "ng!$q"],
 
                         } else {
                             basestyle += 'article.qv-object-' + v + ' .qv-inner-object header{background: ' + headerbg + '; text-transform: capitalize; padding:0px;  }\n';
-							// edit here
-                            basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h1.qv-object-title { text-align:'+layout.headertextalin+' !important; padding: 0 0px 0 0 !important; color: ' + headercolor + ';font-weight: ' + layout.headerfontweight + ' !important;font-size: ' + layout.headerfontsize + 'px;}\n';
+                            // edit here
+                            basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h1.qv-object-title { text-align:' + layout.headertextalin + ' !important; padding: 0 0px 0 0 !important; color: ' + headercolor + ';font-weight: ' + layout.headerfontweight + ' !important;font-size: ' + layout.headerfontsize + 'px;}\n';
                             basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h1.qv-object-title .qv-object-title-text{ width: 100%; padding: ' + layout.headerpaddingtop + 'px ' + layout.headerpaddingright + 'px ' + layout.headerpaddingbottom + 'px ' + layout.headerpaddingleft + 'px;}\n';
                             basestyle += 'article.qv-object-' + v + ' .qv-inner-object header h2.qv-object-subtitle  {color: ' + headercolor + ';   padding: 0 0 0 ' + layout.headerpaddingleft + 'px; }\n';
                             basestyle += '.qv-object-' + v + ' .qv-object-content-container {margin-top: ' + layout.qvobjecttopmargin + ' !important; }\n';
@@ -1475,9 +1786,9 @@ define(["qlik", "ng!$q"],
 
                     basestyle += '.qv-st-bottom-header tr :hover{ background: ' + tabletotalhoverbottombgcolor + ' !important; color: ' + tabletotalhoverbottomcolor + ' !important; }';
 
-					// pivotsupport
-					
-					if (layout.pivotsupport) {
+                    // pivotsupport
+
+                    if (layout.pivotsupport) {
                         // odd
                         basestyle += '.qv-object-pivot-table .qv-inner-object .qv-object-content-container .qv-grid-object-scroll-area table tr:nth-child(even) {background: ' + tableevencolor + ' ;}';
                         //even
@@ -1534,20 +1845,57 @@ define(["qlik", "ng!$q"],
 
                     // $('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
 
+
+                    if (layout.CustomLayoutforobjects) {
+                        // manually add object style 
+                        var customobjectstyle = '';
+                        $.each(layout.listItems3, function(k, v) {
+                            // console.log(v);
+
+                            customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object header{background: ' + v.headerbgcolor + '; text-transform: capitalize; padding:0px;  }\n';
+                            // edit here
+                            customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object header h1.qv-object-title { text-align:' + v.headertextalin + ' !important; padding: 0 0px 0 0 !important;  color: ' + v.headercolor + '!important ;  font-weight: ' + v.headerfontweight + ' !important;  font-size: ' + v.headerfontsize + 'px;}\n';
+                            customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object header h1.qv-object-title .qv-object-title-text{ width: 100%; padding: ' + v.headerpaddingtop + 'px ' + v.headerpaddingright + 'px ' + v.headerpaddingbottom + 'px ' + v.headerpaddingleft + 'px;}\n';
+                            customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object header h2.qv-object-subtitle  {color: ' + v.headercolor + ';   padding: 0 0 0 ' + v.headerpaddingleft + 'px; }\n';
+                            customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-object-content-container {margin-top: ' + v.qvobjecttopmargin + ' !important; }\n';
+                            // object border 
+                            if (layout.qvobjectborder) {
+                                customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-object-content-container {  border: ' + v.qvobjectbordercss + ' !important;}\n';
+                            } else {
+                                customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object  {border: ' + v.qvobjectbordercss + ' !important;}\n';
+                            }
+                            customobjectstyle += '.grid-wrap-zoom-cell div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-object-nav.zero-top > a {color: ' + actionbtncolor + ' !important;}\n';
+                            customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object { background: ' + containerbgcolor + '; }';
+
+                        });
+
+                        // if in edit mode change style on fly
+                        if (qlik.navigation.isModeAllowed(qlik.navigation.EDIT)) {
+                            $('#custom-Qs2').remove();
+                            $('<style id="custom-Qs2"></style>').html(customobjectstyle).appendTo('head');
+                        } else {
+                            if ($("#custom-Qs").length == 0) {
+                                $('#custom-Qs2').remove();
+                                $('<style id="custom-Qs2"></style>').html(customobjectstyle).appendTo('head');
+                            }
+                        }
+
+                    }
+
                     console.time('add style start #2');
                     console.timeEnd('add style start #2');
 
-					 // if in edit mode change style on fly
-					 if(qlik.navigation.isModeAllowed(qlik.navigation.EDIT)){
-						$('#custom-Qs').remove();
-						$('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
-					 }else{
-					 	if ($("#custom-Qs").length == 0) {
-							$('#custom-Qs').remove();
-							$('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
-                     	}
-					 }
-					 
+                    // if in edit mode change style on fly
+                    if (qlik.navigation.isModeAllowed(qlik.navigation.EDIT)) {
+                        $('#custom-Qs').remove();
+                        $('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
+                    } else {
+                        if ($("#custom-Qs").length == 0) {
+                            $('#custom-Qs').remove();
+                            $('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
+                        }
+                    }
+
                     console.time('add style end #2');
                     console.timeEnd('add style end #2');
 
