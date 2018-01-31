@@ -53,26 +53,38 @@ color:#646464;font-weight:normal'>Basic Sheet Settings</span></h3>
 <ul >
 
     <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Screen Resizer: Add Number of rows & columns for Sheet</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Resize Sheet: Resize Number of rows & columns of Sheet</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Custom Google Font: almost all google fonts check
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Resize Sheet: Resize Number of rows & columns of Sheet</span></li>
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Custom Google Font: almost all google fonts check
      out https://fonts.google.com/ for more information</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Change Sheet Title: enables you to change sheet
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Change Sheet Title: enables you to change sheet
      title</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Hide Title Bar: hide title bar3</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Title: custom sheet title with expression
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Hide Title Bar: hide title bar3</span></li>
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Title: custom sheet title with expression
      support</span></li>
     <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Title Height: set title bar height</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Title Font Size: font size of title</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Title Image Width: set width of title image
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Title Font Size: font size of title</span></li>
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Title Image Width: set width of title image
      [198px max]</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Background Image: enable background image</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Background Color: set custom Sheet
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Background Image: enable background image</span></li>
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Background Color: set custom Sheet
      Background Color</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Background Image: set custom Sheet
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Background Image: set custom Sheet
      Background Image</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Background Image[url]: set custom url for Sheet
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Sheet Background Image[url]: set custom url for Sheet
      Background Image</span></li>
-    <li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Object Active color[edit mode only]: change active
+    
+	<li  style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Object Active color[edit mode only]: change active
      color when object is selected</span></li>
 </ul>
 
