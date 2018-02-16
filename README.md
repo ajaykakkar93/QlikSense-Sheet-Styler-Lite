@@ -13,6 +13,16 @@ Qlik Sense Styler
     </span>
 </h2>
 
+
+<h2 style='margin-top:3.75pt;margin-right:0in;margin-bottom:3.75pt;margin-left:
+0in;background:white'><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
+color:#646464;font-weight:normal'>Upcoming Updates.</span></h2>
+
+<ul>
+    <li style='color:#333333;line-height:normal;background:white;
+     box-sizing: border-box'><span style='font-size:10.5pt'>Table Styling based on Object ID</span></li>
+ </ul>
+
 <h3 style='margin-top:3.75pt;margin-right:0in;margin-bottom:3.75pt;margin-left:
 0in;background:white'><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
 color:#646464;font-weight:normal'>Advantage's in QS Styler Lite.</span></h3>
