@@ -163,7 +163,7 @@ color:#646464;font-weight:normal'>Add More Objects</span></h3>
 </ul>
 
 <hr style=" border-color: #eaeaea;">
-<img src="./x-QlikSense-Sheet-Styler-Lite.gif" alt="4nd Version" style="width: 100%;">
+<img src="./x-QlikSense-Sheet-Styler-Lite.gif" alt="5nd Version" style="width: 100%;">
 <hr style=" border-color: #eaeaea;">
 <center>
     <h2 style='margin-top:3.75pt;margin-right:0in;margin-bottom:3.75pt;margin-left:
