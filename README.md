@@ -139,10 +139,11 @@ color:#646464;font-weight:normal'>Table Styling &amp; Advance Settings</span></h
 color:#646464;font-weight:normal'>Add More Objects</span></h3>
 
 <ul>
-    <li style='color:#222222;line-height:normal;background:white'><span style='font-size:10.5pt;color:#333333'>add</span><span style='font-size:
-     10.5pt;background:white'> more objects to style example extension objects Selection
-     Bar Styling &amp; Settings</span></li>
-    <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Hide Selection Bar: hides selection bar </span></li>
+    <li style='color:#222222;line-height:normal;background:white'><span style='font-size:
+     10.5pt;background:white'> Selection
+     Bar Styling &amp; Settings </span></li>
+    
+   <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Hide Selection Bar: hides selection bar </span></li>
     <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Selection Bar Background color: change Background
      color</span></li>
     <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Selection Bar Button Background color: change Button
@@ -154,6 +155,11 @@ color:#646464;font-weight:normal'>Add More Objects</span></h3>
      field item color</span></li>
 </ul>
 
+
+<ul>
+    <li style='color:#222222;line-height:normal;background:white'><span style='font-size:10.5pt;color:#333333'>add</span><span style='font-size:
+     10.5pt;background:white'> more objects to style example extension objects</span></li>
+</ul>
 
 <hr style=" border-color: #eaeaea;">
 <img src="./x-QlikSense-Sheet-Styler-Lite.gif" alt="4nd Version" style="width: 100%;">
