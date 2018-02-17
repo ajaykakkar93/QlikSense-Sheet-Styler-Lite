@@ -1,6 +1,5 @@
 ## QlikSense-Sheet-Styler-Lite
 
-
 <p>Hi everyone as promised <b>QS STYLER LITE</b> is now available for use, it has much improved <b>UI</b> and <b>Property panel</b> than the <b>previous</b> version</p>
 
 <h2 style=" margin-top: 10px; margin-bottom: 10px;">
@@ -12,16 +11,17 @@ Qlik Sense Styler
     </a>
     </span>
 </h2>
-
+<!--
 <h3 style='margin-top:3.75pt;margin-right:0in;margin-bottom:3.75pt;margin-left:
 0in;background:white'><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
 color:#646464;font-weight:normal'>Upcoming Updates.</span></h3>
-
+-->
+<!--
 <ul>
     <li style='color:#333333;line-height:normal;background:white;
      box-sizing: border-box'><span style='font-size:10.5pt'>Table Styling based on Object ID</span></li>
  </ul>
-
+-->
 <h3 style='margin-top:3.75pt;margin-right:0in;margin-bottom:3.75pt;margin-left:
 0in;background:white'><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
 color:#646464;font-weight:normal'>Advantage's in QS Styler Lite.</span></h3>
@@ -49,7 +49,13 @@ color:#646464;font-weight:normal'>Select Style Type</span></h3>
 <ul>
     <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Custom Layout Style For Each Object</span>s: select and add any visualization object based on ID to style it (basic style Only)</li>
     <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Show Object ID</span>s: Get Object ID </li>
-    <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Show Layout Style Css: textarea with current style</span></li>
+    
+   
+   
+   <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Custom Layout Style For Each Object</span>s: select and add any visualization object based on ID to style it (basic style Only)</li>
+    <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Style Table Manually</span>: Table Styling based on Object ID </li>
+   
+   <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Show Layout Style Css: textarea with current style</span></li>
     <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Manually Select Object's and style them</span>e: select and add any visualization objects to style it</li>
     <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Select Sheet Style</span>: example style list</li>
 </ul>
