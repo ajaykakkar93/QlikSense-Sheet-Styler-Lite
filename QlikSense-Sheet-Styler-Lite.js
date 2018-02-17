@@ -92,7 +92,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 					$.each(value.qData.cells, function(k, v) {
 						objlist.push({
 							value: v.name,
-							label: v.name,
+							label: v.name+' : '+v.type,
 						});
 					});
 					return defer.resolve(objlist);
@@ -101,6 +101,33 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 		});
 		return defer.promise;
 	};
+	
+	var getTableList = function() {
+		var defer = ng.defer();
+		app.getAppObjectList('sheet', function(reply) {
+			var str = "";
+			$.each(reply.qAppObjectList.qItems, function(key, value) {
+				var sheet = value.qInfo.qId + '';
+				if (sheet == sheetId) {
+					var objlist = [];
+					//str += value.qData.title + ' ';
+					$.each(value.qData.cells, function(k, v) {
+						console.log(value);
+						if(v.type == "table" || v.type == 'table' || v.type == "pivot-table" || v.type == 'pivot-table'){
+							objlist.push({
+								value: v.name,
+								label: v.name+' : '+v.type,
+							});
+						}
+					});
+					return defer.resolve(objlist);
+				}
+			});
+		});
+		return defer.promise;
+	};
+	
+	
 	var objectlst = {
 		type: "string",
 		component: "dropdown",
@@ -119,6 +146,18 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 		ref: "selectedSheetObj",
 		options: function() {
 			return getSheetobjidList().then(function(items) {
+				return items;
+			});
+		}
+	};
+	
+	var tablelst = {
+		type: "string",
+		component: "dropdown",
+		label: "Select Objects in Current Sheet to apply Style",
+		ref: "selectedTableObject",
+		options: function() {
+			return getTableList().then(function(items) {
 				return items;
 			});
 		}
@@ -163,7 +202,8 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 		initialProperties: {
 			listItems: [],
 			listItems2: [],
-			listItems3: []
+			listItems3: [],
+			customtablestyle: []
 		},
 		definition: {
 			type: "items",
@@ -186,7 +226,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 							label: "Show Object ID",
 							defaultValue: false,
 							show: function(data) {
-								if (data.CustomLayoutforobjects) {
+								if (data.CustomLayoutforobjects || data.customtablestyleenable) {
 									return true;
 								} else {
 									return false;
@@ -317,6 +357,364 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 									defaultValue: '#fff'
 								},
 								// end
+							}
+						},
+						// end
+						customtablestyleenable: {
+							ref: "customtablestyleenable",
+							type: "boolean",
+							component: "checkbox",
+							label: "Style Table Manually",
+							defaultValue: false
+						},
+						customtablestyle: {
+							type: "array",
+							ref: "customtablestyle",
+							label: "Style Table Manually",
+							itemTitleRef: "label",
+							allowAdd: true,
+							allowRemove: true,
+							addTranslation: "Add Objects",
+							min: 1,
+							
+							show: function(data) {
+								if (data.customtablestyleenable) {
+									return true;
+								} else {
+									return false;
+								}
+							},
+							
+							items: {
+								label: {
+									type: "string",
+									ref: "label",
+									label: "Label",
+									expression: "optional"
+								},
+								// start
+								objectlst: tablelst,
+								// select
+								tablesupport: {
+									ref: "tablesupport",
+									type: "boolean",
+									component: "checkbox",
+									label: "Apply style for Table?",
+									defaultValue: false
+								},
+								pivotsupport: {
+									ref: "pivotsupport",
+									type: "boolean",
+									component: "checkbox",
+									label: "Apply style for Pivot?",
+									defaultValue: false,
+									show: function(data) {
+										if (data.tablesupport) {
+											return false;
+										} else {
+											return true;
+										}
+									}
+									
+								},
+								// table
+								tablecolor: {
+									type: "string",
+									label: "Table color",
+									ref: "tablecolor",
+									defaultValue: "#fff",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tablebgcolor: {
+									type: "string",
+									label: "Table Background color",
+									ref: "tablebgcolor",
+									defaultValue: "#c9cacc",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tablehoverbgcolor: {
+									type: "string",
+									label: "Table Hover Background color",
+									ref: "tablehoverbgcolor",
+									defaultValue: "#c9cacc",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tablehovercolor: {
+									type: "string",
+									label: "Table Hover color",
+									ref: "tablehovercolor",
+									defaultValue: "#fff",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tabletotalcolor: {
+									type: "string",
+									label: "Total Top color",
+									ref: "tabletotalcolor",
+									defaultValue: "#fff",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tabletotalbgcolor: {
+									type: "string",
+									label: "Total Top Background color",
+									ref: "tabletotalbgcolor",
+									defaultValue: "#c9cacc",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tabletotalhovercolor: {
+									type: "string",
+									label: "Total Top Hover color",
+									ref: "tabletotalhovercolor",
+									defaultValue: "#fff",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tabletotalhoverbgcolor: {
+									type: "string",
+									label: "Total Top Hover Background color",
+									ref: "tabletotalhoverbgcolor",
+									defaultValue: "#c9cacc",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tabletotalbottomcolor: {
+									type: "string",
+									label: "Total Bottom color",
+									ref: "tabletotalbottomcolor",
+									defaultValue: "#fff",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tabletotalbottombgcolor: {
+									type: "string",
+									label: "Total Bottom Background color",
+									ref: "tabletotalbottombgcolor",
+									defaultValue: "#c9cacc",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tabletotalhoverbottomcolor: {
+									type: "string",
+									label: "Total Bottom Hover color",
+									ref: "tabletotalhoverbottomcolor",
+									defaultValue: "#fff",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tabletotalhoverbottombgcolor: {
+									type: "string",
+									label: "Total Bottom Hover Background color",
+									ref: "tabletotalhoverbottombgcolor",
+									defaultValue: "#c9cacc",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tablecolumwidthadjuster: {
+									type: "string",
+									label: "Table Column width Adjuster in PX",
+									ref: "tablecolumwidthadjuster",
+									defaultValue: "1",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tablecolumwidthadjustercolor: {
+									type: "string",
+									label: "Table Column width Adjuster Color",
+									ref: "tablecolumwidthadjustercolor",
+									defaultValue: "black",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tableheaderborder: {
+									type: "string",
+									label: "Table Header Border",
+									ref: "tableheaderborder",
+									defaultValue: "1px solid #000",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tableoddcolor: {
+									type: "string",
+									label: "Total Odd color",
+									ref: "tableoddcolor",
+									defaultValue: "#ff",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tableevencolor: {
+									type: "string",
+									label: "Total Even color",
+									ref: "tableevencolor",
+									defaultValue: "#f2f2f2",
+									expression: "optional",
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								
+								// pivot
+								pivottablecolor: {
+									type: "string",
+									label: "Pivot Table color",
+									ref: "pivottablecolor",
+									defaultValue: "#fff",
+									expression: "optional",
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottablebgcolor: {
+									type: "string",
+									label: "Pivot Table Background color",
+									ref: "pivottablebgcolor",
+									defaultValue: "#c9cacc",
+									expression: "optional",
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottablehoverbgcolor: {
+									type: "string",
+									label: "Pivot Table Hover Background color",
+									ref: "tablehoverbgcolor",
+									defaultValue: "#c9cacc",
+									expression: "optional",
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottablehovercolor: {
+									type: "string",
+									label: "Pivot Table Hover color",
+									ref: "tablehovercolor",
+									defaultValue: "#fff",
+									expression: "optional",
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},	
+								
 							}
 						},
 						// end
@@ -1496,6 +1894,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 				/* for fa icon fix in objects */
 				basestyle += '.fa {	font-family: FontAwesome !important;  }';
 				// $('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
+				
 				if (layout.CustomLayoutforobjects) {
 					// manually add object style 
 					var customobjectstyle = '';
@@ -1516,17 +1915,74 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 						customobjectstyle += '.grid-wrap-zoom-cell div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-object-nav.zero-top > a {color: ' + actionbtncolor + ' !important;}\n';
 						customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object { background: ' + containerbgcolor + ' !important; }';
 					});
+					
+					
+					// end custom table selected styling 
 					// if in edit mode change style on fly
 					if (qlik.navigation.isModeAllowed(qlik.navigation.EDIT)) {
-						$('#custom-Qs2').remove();
-						$('<style id="custom-Qs2"></style>').html(customobjectstyle).appendTo('head');
+						$('#custom-QsObjects').remove();
+						$('<style id="custom-QsObjects"></style>').html(customobjectstyle).appendTo('head');
 					} else {
-						if ($("#custom-Qs").length == 0) {
-							$('#custom-Qs2').remove();
-							$('<style id="custom-Qs2"></style>').html(customobjectstyle).appendTo('head');
+						if ($("#custom-QsObjects").length == 0) {
+							$('#custom-QsObjects').remove();
+							$('<style id="custom-QsObjects"></style>').html(customobjectstyle).appendTo('head');
 						}
 					}
 				}
+				
+				
+				
+				if (layout.customtablestyleenable) {
+				// custom table styling
+					var customtablestyle='';
+					$.each(layout.customtablestyle, function(k, v) {
+						/*table css*/
+						// th column name
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-st-header-wrapper tr:nth-child(1) {background: ' + v.tablebgcolor + ' !important; color: ' + v.tablecolor + ' !important;}';
+						// th total column
+						customobjectstyle += 'div[tid="' + v.selectedTableObject + '"] .qv-st-header-wrapper tr:nth-child(2) {background: ' + v.tabletotalbgcolor + ' !important; color: ' + v.tabletotalcolor + ' !important;}';
+						// total culumn buttom
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-st-bottom-header tr{ background: ' + v.tabletotalbottombgcolor + ' !important;color: ' + v.tabletotalbottomcolor + ' !important; }';
+						// odd
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-table .qv-inner-object .qv-object-content-container .qv-grid-object-scroll-area table tr:nth-child(even) {background: ' + v.tableevencolor + ' !important;}';
+						//even
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-table .qv-inner-object .qv-object-content-container .qv-grid-object-scroll-area table tr:nth-child(odd) {background: ' + v.tableoddcolor + ' !important;}';
+						// hover
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-st-header-wrapper tr:nth-child(1) :hover {background: ' + v.tablehoverbgcolor + ' !important; color: ' + v.tablehovercolor + ' !important;}';
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-st-header-wrapper tr:nth-child(2) :hover {background: ' + v.tabletotalhoverbgcolor + ' !important; color: ' + v.tabletotalhovercolor + ' !important;}';
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-st-bottom-header tr :hover{ background: ' + v.tabletotalhoverbottombgcolor + ' !important; color: ' + v.tabletotalhoverbottomcolor + ' !important; }';
+						// column width adjuster & color
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .column-width-adjuster .column-width-adjust-line { width:' + v.tablecolumwidthadjuster + 'px !important; background: ' + v.tablecolumwidthadjustercolor + ' !important; }';
+						// table header border
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] table .qv-st-header-cell { border:' + v.tableheaderborder + ' !important; }';
+						// pivotsupport
+						if (v.pivotsupport) {
+							// odd
+							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object .qv-object-content-container .qv-grid-object-scroll-area table tr:nth-child(even) {background: ' + v.tableevencolor + ' !important;}';
+							//even
+							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object .qv-object-content-container .qv-grid-object-scroll-area table tr:nth-child(odd) {background: ' + v.tableoddcolor + ' !important;}';
+							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table tr:nth-child(1) {background: ' + v.pivottablebgcolor + ' !important; color: ' + v.pivottablecolor + ' !important;}';
+							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table tr:nth-child(2) {background: ' + v.pivottablebgcolor + ' !important; color: ' + v.pivottablecolor + ' !important;}';
+							// hover
+							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table tr:nth-child(2) :hover {background: ' + v.pivottablehoverbgcolor + ' !important; color: ' + v.pivottablehovercolor + ' !important;}';
+						}
+				
+					
+					});
+					// if in edit mode change style on fly
+					if (qlik.navigation.isModeAllowed(qlik.navigation.EDIT)) {
+						$('#custom-QsTable').remove();
+						$('<style id="custom-QsTable"></style>').html(customtablestyle).appendTo('head');
+					} else {
+						if ($("#custom-QsTable").length == 0) {
+							$('#custom-QsTable').remove();
+							$('<style id="custom-QsTable"></style>').html(customtablestyle).appendTo('head');
+						}
+					}
+					
+				}
+				
+				
 				console.time('add style start #2');
 				console.timeEnd('add style start #2');
 				// if in edit mode change style on fly
