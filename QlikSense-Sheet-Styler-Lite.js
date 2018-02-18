@@ -1895,6 +1895,19 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 				basestyle += '.fa {	font-family: FontAwesome !important;  }';
 				// $('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
 				
+				console.time('add style start #2');
+				console.timeEnd('add style start #2');
+				// if in edit mode change style on fly
+				if (qlik.navigation.isModeAllowed(qlik.navigation.EDIT)) {
+					$('#custom-Qs').remove();
+					$('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
+				} else {
+					if ($("#custom-Qs").length == 0) {
+						$('#custom-Qs').remove();
+						$('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
+					}
+				}
+				
 				if (layout.CustomLayoutforobjects) {
 					// manually add object style 
 					var customobjectstyle = '';
@@ -1929,8 +1942,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 						}
 					}
 				}
-				
-				
 				
 				if (layout.customtablestyleenable) {
 				// custom table styling
@@ -1983,18 +1994,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 				}
 				
 				
-				console.time('add style start #2');
-				console.timeEnd('add style start #2');
-				// if in edit mode change style on fly
-				if (qlik.navigation.isModeAllowed(qlik.navigation.EDIT)) {
-					$('#custom-Qs').remove();
-					$('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
-				} else {
-					if ($("#custom-Qs").length == 0) {
-						$('#custom-Qs').remove();
-						$('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
-					}
-				}
 				console.time('add style end #2');
 				console.timeEnd('add style end #2');
 				$element.html('<textarea id="xportcsstext" class="simple-textarea lui-textarea" rows="10">' + basestyle + '</textarea>');
