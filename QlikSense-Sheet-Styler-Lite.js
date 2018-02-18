@@ -1940,7 +1940,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 						// th column name
 						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-st-header-wrapper tr:nth-child(1) {background: ' + v.tablebgcolor + ' !important; color: ' + v.tablecolor + ' !important;}';
 						// th total column
-						customobjectstyle += 'div[tid="' + v.selectedTableObject + '"] .qv-st-header-wrapper tr:nth-child(2) {background: ' + v.tabletotalbgcolor + ' !important; color: ' + v.tabletotalcolor + ' !important;}';
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-st-header-wrapper tr:nth-child(2) {background: ' + v.tabletotalbgcolor + ' !important; color: ' + v.tabletotalcolor + ' !important;}';
 						// total culumn buttom
 						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-st-bottom-header tr{ background: ' + v.tabletotalbottombgcolor + ' !important;color: ' + v.tabletotalbottomcolor + ' !important; }';
 						// odd
