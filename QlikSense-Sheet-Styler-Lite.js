@@ -92,7 +92,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 					$.each(value.qData.cells, function(k, v) {
 						objlist.push({
 							value: v.name,
-							label: v.name+' : '+v.type,
+							label: v.name + ' : ' + v.type,
 						});
 					});
 					return defer.resolve(objlist);
@@ -101,7 +101,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 		});
 		return defer.promise;
 	};
-	
 	var getTableList = function() {
 		var defer = ng.defer();
 		app.getAppObjectList('sheet', function(reply) {
@@ -113,10 +112,10 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 					//str += value.qData.title + ' ';
 					$.each(value.qData.cells, function(k, v) {
 						console.log(value);
-						if(v.type == "table" || v.type == 'table' || v.type == "pivot-table" || v.type == 'pivot-table'){
+						if (v.type == "table" || v.type == 'table' || v.type == "pivot-table" || v.type == 'pivot-table') {
 							objlist.push({
 								value: v.name,
-								label: v.name+' : '+v.type,
+								label: v.name + ' : ' + v.type,
 							});
 						}
 					});
@@ -126,8 +125,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 		});
 		return defer.promise;
 	};
-	
-	
 	var objectlst = {
 		type: "string",
 		component: "dropdown",
@@ -150,7 +147,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 			});
 		}
 	};
-	
 	var tablelst = {
 		type: "string",
 		component: "dropdown",
@@ -376,7 +372,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 							allowRemove: true,
 							addTranslation: "Add Objects",
 							min: 1,
-							
 							show: function(data) {
 								if (data.customtablestyleenable) {
 									return true;
@@ -384,7 +379,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 									return false;
 								}
 							},
-							
 							items: {
 								label: {
 									type: "string",
@@ -415,7 +409,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 											return true;
 										}
 									}
-									
 								},
 								// table
 								tablecolor: {
@@ -656,7 +649,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 										}
 									}
 								},
-								
 								// pivot
 								pivottablecolor: {
 									type: "string",
@@ -713,8 +705,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 											return false;
 										}
 									}
-								},	
-								
+								},
 							}
 						},
 						// end
@@ -1894,7 +1885,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 				/* for fa icon fix in objects */
 				basestyle += '.fa {	font-family: FontAwesome !important;  }';
 				// $('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
-				
 				console.time('add style start #2');
 				console.timeEnd('add style start #2');
 				// if in edit mode change style on fly
@@ -1907,7 +1897,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 						$('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
 					}
 				}
-				
 				if (layout.CustomLayoutforobjects) {
 					// manually add object style 
 					var customobjectstyle = '';
@@ -1928,8 +1917,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 						customobjectstyle += '.grid-wrap-zoom-cell div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-object-nav.zero-top > a {color: ' + actionbtncolor + ' !important;}\n';
 						customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object { background: ' + containerbgcolor + ' !important; }';
 					});
-					
-					
 					// end custom table selected styling 
 					// if in edit mode change style on fly
 					if (qlik.navigation.isModeAllowed(qlik.navigation.EDIT)) {
@@ -1942,10 +1929,9 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 						}
 					}
 				}
-				
 				if (layout.customtablestyleenable) {
-				// custom table styling
-					var customtablestyle='';
+					// custom table styling
+					var customtablestyle = '';
 					$.each(layout.customtablestyle, function(k, v) {
 						/*table css*/
 						// th column name
@@ -1977,8 +1963,6 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 							// hover
 							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table tr:nth-child(2) :hover {background: ' + v.pivottablehoverbgcolor + ' !important; color: ' + v.pivottablehovercolor + ' !important;}';
 						}
-				
-					
 					});
 					// if in edit mode change style on fly
 					if (qlik.navigation.isModeAllowed(qlik.navigation.EDIT)) {
@@ -1990,10 +1974,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 							$('<style id="custom-QsTable"></style>').html(customtablestyle).appendTo('head');
 						}
 					}
-					
 				}
-				
-				
 				console.time('add style end #2');
 				console.timeEnd('add style end #2');
 				$element.html('<textarea id="xportcsstext" class="simple-textarea lui-textarea" rows="10">' + basestyle + '</textarea>');
