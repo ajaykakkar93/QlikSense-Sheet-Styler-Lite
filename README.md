@@ -145,6 +145,17 @@ color:#646464;font-weight:normal'>Table Styling &amp; Advance Settings</span></h
     <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Total Bottom Hover Background color: hover
      background color</span></li>
     <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Total Bottom Hover color: hover text color</span></li>
+	
+	<li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Numeric Measure Text Align</span></li>
+	<li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Text Dim Align</span></li>
+	<li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Custom Text Align</span></li>
+	<li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Column Align</span></li>
+	<li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Data Cell Size</span></li>
+	<li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Data Font Size</span></li>
+	<li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Table Column width Adjuster in PX</span></li>
+	<li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Table Column width Adjuster Color</span></li>
+	<li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Table Header Border</span></li>
+	
     <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Total Odd color: Odd row background color</span></li>
     <li style='color:#333333;line-height:normal;background:white'><span style='font-size:10.5pt'>Total Even color: Even row background color</span></li>
 </ul>
