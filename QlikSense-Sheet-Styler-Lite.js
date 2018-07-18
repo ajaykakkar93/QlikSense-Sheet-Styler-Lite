@@ -92,7 +92,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 					$.each(value.qData.cells, function(k, v) {
 						objlist.push({
 							value: v.name,
-							label: v.name + ' : ' + v.type,
+							label: v.name+' : '+v.type,
 						});
 					});
 					return defer.resolve(objlist);
@@ -101,6 +101,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 		});
 		return defer.promise;
 	};
+	
 	var getTableList = function() {
 		var defer = ng.defer();
 		app.getAppObjectList('sheet', function(reply) {
@@ -112,10 +113,10 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 					//str += value.qData.title + ' ';
 					$.each(value.qData.cells, function(k, v) {
 						console.log(value);
-						if (v.type == "table" || v.type == 'table' || v.type == "pivot-table" || v.type == 'pivot-table') {
+						if(v.type == "table" || v.type == 'table' || v.type == "pivot-table" || v.type == 'pivot-table'){
 							objlist.push({
 								value: v.name,
-								label: v.name + ' : ' + v.type,
+								label: v.name+' : '+v.type,
 							});
 						}
 					});
@@ -125,6 +126,8 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 		});
 		return defer.promise;
 	};
+	
+	
 	var objectlst = {
 		type: "string",
 		component: "dropdown",
@@ -147,6 +150,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 			});
 		}
 	};
+	
 	var tablelst = {
 		type: "string",
 		component: "dropdown",
@@ -194,6 +198,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 		});
 		return defer.promise;
 	};
+	
 	return {
 		initialProperties: {
 			listItems: [],
@@ -372,6 +377,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 							allowRemove: true,
 							addTranslation: "Add Objects",
 							min: 1,
+							
 							show: function(data) {
 								if (data.customtablestyleenable) {
 									return true;
@@ -379,6 +385,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 									return false;
 								}
 							},
+							
 							items: {
 								label: {
 									type: "string",
@@ -409,8 +416,157 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 											return true;
 										}
 									}
+									
 								},
 								// table
+								// new 11/6/2018
+								tablenumericalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Numeric Measure Text Align",
+									ref: "tablenumericalign",
+									options: [{
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tabletextalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Text Dim Align",
+									ref: "tabletextalign",
+									options: [{
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tablecustomalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Custom Text Align",
+									ref: "tablecustomalign",
+									options: [{
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tablecolumnalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Column Align",
+									ref: "tablecolumnalign",
+									options: [{
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								tablecellstyle: { 
+									type: "string",
+									component: "dropdown",
+									label: "Data Cell Size",
+									ref: "tablecellstyle",
+									options: [{
+										value: "standard",
+										label: "Standard"
+									}, {
+										value: "small",
+										label: "Small"
+									}, {
+										value: "medium",
+										label: "Medium"
+									}, {
+										value: "large",
+										label: "Large"
+									}],
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									},
+									defaultValue: "small"
+								},
+								tablecellfontsize: {
+									type: "string",
+									component: "dropdown",
+									label: "Data Font Size",
+									ref: "tablecellfontsize",
+									options: [{
+										value: "standard",
+										label: "Standard"
+									}, {
+										value: "small",
+										label: "Small"
+									}, {
+										value: "medium",
+										label: "Medium"
+									}, {
+										value: "large",
+										label: "Large"
+									}],
+									show: function(data) {
+										if (data.tablesupport) {
+											return true;
+										} else {
+											return false;
+										}
+									},
+									defaultValue: "small"
+								},
+								// end
 								tablecolor: {
 									type: "string",
 									label: "Table color",
@@ -625,7 +781,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 									type: "string",
 									label: "Total Odd color",
 									ref: "tableoddcolor",
-									defaultValue: "#ff",
+									defaultValue: "#fff",
 									expression: "optional",
 									show: function(data) {
 										if (data.tablesupport) {
@@ -649,6 +805,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 										}
 									}
 								},
+								
 								// pivot
 								pivottablecolor: {
 									type: "string",
@@ -706,6 +863,185 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 										}
 									}
 								},
+								// 11/6/2018
+								pivottableoddcolor: {
+									label: "Row Odd color",
+									component: "color-picker",
+									ref: "pivottableoddcolor",
+									type: "object",
+									dualOutput: true,
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottableevencolor: {
+									label: "Row Even color",
+									component: "color-picker",
+									ref: "pivottableevencolor",
+									type: "object",
+									dualOutput: true,
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottableheaderalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Coloumn Text Align",
+									ref: "pivottableheaderalign",
+									options: [{
+										value: "Default",
+										label: "Default"
+									}, {
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottableheaderweight: {
+									type: "string",
+									component: "dropdown",
+									label: "Column Text Weight",
+									ref: "pivottableheaderweight",
+									options: [{
+										value: "Default",
+										label: "Default"
+									}, {
+										value: "bold",
+										label: "Bold"
+									}, {
+										value: "lighter",
+										label: "Lighter"
+									}],
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottableheaderfontsize: {
+									type: "string",
+									ref: "pivottableheaderfontsize",
+									label: "Coloumn Text Size in PX",
+									expression: "optional",
+									defaultValue: "14",
+								},
+								pivottabledataheaderalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Text Align",
+									ref: "pivottabledataheaderalign",
+									options: [{
+										value: "Default",
+										label: "Default"
+									}, {
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottablenumericalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Number Text Align",
+									ref: "pivottablenumericalign",
+									options: [{
+										value: "Default",
+										label: "Default"
+									}, {
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottablecustomalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Custom Text Align",
+									ref: "pivottablecustomalign",
+									options: [{
+										value: "Default",
+										label: "Default"
+									}, {
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottablenullvalbgcolor: {
+									label: "Null Value BG color",
+									component: "color-picker",
+									ref: "pivottablenullvalbgcolor",
+									type: "object",
+									dualOutput: true,
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								// end
+								
 							}
 						},
 						// end
@@ -1195,6 +1531,112 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 							label: "Table",
 							items: {
 								// table
+								// new 11/6/2018
+								tablenumericalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Numeric Measure Text Align",
+									ref: "tablenumericalign",
+									options: [{
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+								},
+								tabletextalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Text Dim Align",
+									ref: "tabletextalign",
+									options: [{
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+								},
+								tablecustomalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Custom Text Align",
+									ref: "tablecustomalign",
+									options: [{
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+								},
+								tablecolumnalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Column Align",
+									ref: "tablecolumnalign",
+									options: [{
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+								},
+								tablecellstyle: { 
+									type: "string",
+									component: "dropdown",
+									label: "Data Cell Size",
+									ref: "tablecellstyle",
+									options: [{
+										value: "standard",
+										label: "Standard"
+									}, {
+										value: "small",
+										label: "Small"
+									}, {
+										value: "medium",
+										label: "Medium"
+									}, {
+										value: "large",
+										label: "Large"
+									}],
+									defaultValue: "small"
+								},
+								tablecellfontsize: {
+									type: "string",
+									component: "dropdown",
+									label: "Data Font Size",
+									ref: "tablecellfontsize",
+									options: [{
+										value: "standard",
+										label: "Standard"
+									}, {
+										value: "small",
+										label: "Small"
+									}, {
+										value: "medium",
+										label: "Medium"
+									}, {
+										value: "large",
+										label: "Large"
+									}],
+									defaultValue: "small"
+								},
+								// end
 								tablecolor: {
 									type: "string",
 									label: "Table color",
@@ -1304,7 +1746,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 									type: "string",
 									label: "Total Odd color",
 									ref: "tableoddcolor",
-									defaultValue: "#ff",
+									defaultValue: "#fff",
 									expression: "optional"
 								},
 								tableevencolor: {
@@ -1325,7 +1767,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 									type: "boolean",
 									component: "checkbox",
 									label: "Apply style for Pivot?",
-									defaultValue: true
+									defaultValue: false
 								},
 								// pivot
 								pivottablecolor: {
@@ -1384,6 +1826,191 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 										}
 									}
 								},
+								// 11/6/2018
+								pivottableoddcolor: {
+									label: "Row Odd color",
+									component: "color-picker",
+									ref: "pivottableoddcolor",
+									type: "object",
+									dualOutput: true,
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottableevencolor: {
+									label: "Row Even color",
+									component: "color-picker",
+									ref: "pivottableevencolor",
+									type: "object",
+									dualOutput: true,
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottableheaderalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Coloumn Text Align",
+									ref: "pivottableheaderalign",
+									options: [{
+										value: "Default",
+										label: "Default"
+									}, {
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottableheaderweight: {
+									type: "string",
+									component: "dropdown",
+									label: "Column Text Weight",
+									ref: "pivottableheaderweight",
+									options: [{
+										value: "Default",
+										label: "Default"
+									}, {
+										value: "bold",
+										label: "Bold"
+									}, {
+										value: "lighter",
+										label: "Lighter"
+									}],
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottableheaderfontsize: {
+									type: "string",
+									ref: "pivottableheaderfontsize",
+									label: "Coloumn Text Size in PX",
+									expression: "optional",
+									defaultValue: "14",
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottabledataheaderalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Text Align",
+									ref: "pivottabledataheaderalign",
+									options: [{
+										value: "Default",
+										label: "Default"
+									}, {
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottablenumericalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Number Text Align",
+									ref: "pivottablenumericalign",
+									options: [{
+										value: "Default",
+										label: "Default"
+									}, {
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottablecustomalign: {
+									type: "string",
+									component: "dropdown",
+									label: "Custom Text Align",
+									ref: "pivottablecustomalign",
+									options: [{
+										value: "Default",
+										label: "Default"
+									}, {
+										value: "Left",
+										label: "Left"
+									}, {
+										value: "Right",
+										label: "Right"
+									}, {
+										value: "Center",
+										label: "Center"
+									}],
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								pivottablenullvalbgcolor: {
+									label: "Null Value BG color",
+									component: "color-picker",
+									ref: "pivottablenullvalbgcolor",
+									type: "object",
+									dualOutput: true,
+									show: function(data) {
+										if (data.pivotsupport) {
+											return true;
+										} else {
+											return false;
+										}
+									}
+								},
+								// end
 							}
 						}
 					}
@@ -1694,7 +2321,26 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 					tabletotalbottombgcolor = layout.tabletotalbottombgcolor,
 					tabletotalbottomcolor = layout.tabletotalbottomcolor,
 					tableevencolor = layout.tableevencolor,
-					tableoddcolor = layout.tableoddcolor;
+					tableoddcolor = layout.tableoddcolor,
+					//11/6/2018
+					tablenumericalign = layout.tablenumericalign,
+					tabletextalign = layout.tabletextalign,
+					tablecustomalign = layout.tablecustomalign,
+					tablecolumnalign = layout.tablecolumnalign,
+					tablecellstyle = layout.tablecellstyle,
+					tablecellfontsize = layout.tablecellfontsize,
+					
+					pivottablenullvalbgcolor = layout.pivottablenullvalbgcolor,
+					pivottablecustomalign = layout.pivottablecustomalign,
+					pivottablenumericalign = layout.pivottablenumericalign,
+					pivottabledataheaderalign = layout.pivottabledataheaderalign,
+					pivottableheaderfontsize = layout.pivottableheaderfontsize,
+					pivottableheaderweight = layout.pivottableheaderweight,
+					pivottableheaderalign = layout.pivottableheaderalign,
+					pivottableevencolor = layout.pivottableevencolor,
+					pivottableoddcolor = layout.pivottableoddcolor;
+					console.log(pivottablenullvalbgcolor);
+					// end
 				var basestyle = '';
 				var font = layout.customfont;
 				font.replace(/\s /g, '+');
@@ -1706,15 +2352,21 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 				// sheet background
 				if (layout.sheetbackgroundcolororimg) {
 					if (layout.sheetbackgroundimage == '' || layout.sheetbackgroundimage == undefined || layout.sheetbackgroundimage == 'undefined') {
-						//   console.log('content img : ' + layout.sheetbackgroundimgurl);
-						basestyle += ' .qvt-sheet{ background:' + layout.sheetbackgroundimgurl + ' !important; }   \n ';
+						   console.log('content img : ' + layout.sheetbackgroundimgurl);
+						if(layout.sheetbackgroundimgurl == '' || layout.sheetbackgroundimgurl == undefined || layout.sheetbackgroundimgurl == ' '){
+							basestyle += ' .qvt-sheet{ background:' + layout.sheetbackgroundimgurl + ' !important; }   \n ';
+						}
 					} else {
-						//     console.log('url img : ' + layout.sheetbackgroundimage);
-						basestyle += ' .qvt-sheet{background:url(' + layout.sheetbackgroundimage + ') !important;   }   \n ';
+						     console.log('url img : ' + layout.sheetbackgroundimage);
+						if(layout.sheetbackgroundimage == '' || layout.sheetbackgroundimage == undefined || layout.sheetbackgroundimage == ' '){
+							basestyle += ' .qvt-sheet{background:url(' + layout.sheetbackgroundimage + ') !important;   }   \n ';
+						}
 					}
 				} else {
-					//   console.log('bg color : ' + layout.sheetbackground);
-					basestyle += ' .qvt-sheet{ background:' + layout.sheetbackground + ' !important;   }  \n ';
+					  console.log('bg color : ' + layout.sheetbackground);
+					if(layout.sheetbackground == '' || layout.sheetbackground  == undefined || layout.sheetbackground  == ' '){
+						basestyle += ' .qvt-sheet{ background:' + layout.sheetbackground + ' !important;   }  \n ';
+					}
 				}
 				// qv-gridcell active
 				basestyle += '#grid .qv-gridcell.active{ border: 2px solid ' + layout.gridcellactive + ' !important; }';
@@ -1760,8 +2412,8 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 					//header bg and other css will not apply to kpi and text obj and action navigation
 					if (layout.customactionstyle) {
 						basestyle += 'article.qv-object-' + v + ' .qv-inner-object .qv-object-content-container{border: 1px solid #d7cfcf !important;;}';
-						basestyle += '.grid-wrap-zoom-cell .qv-object-' + v + ' .qv-object-content-container {padding-top: 5px !important;}';
-						basestyle += '.qv-object-' + v + ' .qv-object-content-container {padding-top: 5px !important;}';
+						basestyle += '.grid-wrap-zoom-cell .qv-object-' + v + ' .qv-object-content-container {padding-top: 1px !important;}';
+						basestyle += '.qv-object-' + v + ' .qv-object-content-container {padding-top: 1px !important;}';
 						basestyle += '.qv-object-nav > a.border {border: 1px solid #ccc !important;padding: 5px !important;background: #FFFFFF !important;color: #a19a9a !important;border-radius: 0% !importnat;}';
 						/* change 50px dynamic */
 						basestyle += '.qv-object-nav{top: ' + layout.customactionbtntop + 'px !important;}';
@@ -1839,6 +2491,42 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 				basestyle += '.column-width-adjuster .column-width-adjust-line { width:' + tablecolumwidthadjuster + 'px !important; background: ' + tablecolumwidthadjustercolor + ' !important; }';
 				// table header border
 				basestyle += 'table .qv-st-header-cell { border:' + tableheaderborder + ' !important; }';
+				
+						// align tablenumericalign tabletextalign
+						//11/6/2018
+						basestyle += 'table .qv-st-data-cell.qv-st-data-cell-numeric .qv-st-value { text-align:' + tablenumericalign + ' !important; }';
+						basestyle += 'table .qv-st-data-cell.qv-st-data-cell-dimension-value .qv-st-value { text-align:' + tabletextalign + ' !important; }';
+						basestyle += 'table .qv-st-data-cell .qv-st-value { text-align:' + tablecustomalign + ' !important; }';
+						basestyle += 'table tr th .qv-st-value { text-align:' + tablecolumnalign + ' !important; }';
+						// table datastyle : tablecellstyle
+						if (tablecellstyle == 'standard' || tablecellstyle == "standard") {
+							// table data font size
+						} else if (tablecellstyle == 'small' || tablecellstyle == "small") {
+							// table data formatting
+							basestyle += 'table tr td.qv-st-data-cell { padding-left: 1px !important; padding-top: 0.3em !important;  padding-bottom: 0.3em !important; ';
+						} else if (tablecellstyle == 'medium' || tablecellstyle == "medium") {
+							// table data formatting
+							basestyle += 'table tr td.qv-st-data-cell { padding-left: 1px !important; padding-top: 0.6em !important;  padding-bottom: 0.6em !important; ';
+						} else if (tablecellstyle == 'large' || tablecellstyle == "large") {
+							// table data formatting
+							basestyle += 'table tr td.qv-st-data-cell { padding-left: 1px !important; padding-top: 1em !important;  padding-bottom: 1em !important; ';
+						}
+						// table data font size
+						if (tablecellfontsize == 'standard' || tablecellfontsize == "standard") {
+							// table data font size
+							basestyle += ' }';
+						} else if (tablecellfontsize == 'small' || tablecellfontsize == "small") {
+							basestyle += ' font-size: 0.6em !important; }';
+						} else if (tablecellfontsize == 'medium' || tablecellfontsize == "medium") {
+							// table data font size
+							basestyle += ' font-size: 1.1em !important; }';
+						} else if (tablecellfontsize == 'large' || tablecellfontsize == "large") {
+							// table data font size
+							basestyle += ' font-size: 1.2em !important; }';
+						}
+						
+						// end
+				
 				// pivotsupport
 				if (layout.pivotsupport) {
 					// odd
@@ -1849,6 +2537,35 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 					basestyle += '.qv-object-pivot-table .qv-inner-object table tr:nth-child(2) {background: ' + pivottablebgcolor + ' !important; color: ' + pivottablecolor + ' !important;}';
 					// hover
 					basestyle += '.qv-object-pivot-table .qv-inner-object table tr:nth-child(2) :hover {background: ' + pivottablehoverbgcolor + ' !important; color: ' + pivottablehovercolor + ' !important;}';
+				
+					// 11/6/2018
+					//	num val alingn
+						if (pivottablenumericalign == 'Default' || pivottablenumericalign == "Default") {} else {
+							basestyle += '.qv-object-pivot-table .qv-inner-object table td.cell.numeric { text-align: ' + pivottablenumericalign + ' !important; }';
+						}
+						//5/11/2018
+						// header text align
+						if (pivottabledataheaderalign == 'Default' || pivottabledataheaderalign == "Default") {} else {
+							basestyle += '.qv-object-pivot-table .qv-inner-object table td.cell.header { text-align: ' + pivottabledataheaderalign + ' !important; }';
+						}
+						// custom text align
+						if (pivottablecustomalign == 'Default' || pivottablecustomalign == "Default") {} else {
+							basestyle += '.qv-object-pivot-table .qv-inner-object table td.cell.data { text-align: ' + pivottablecustomalign + ' !important; }';
+						}
+						basestyle += '.qv-object-pivot-table .qv-inner-object table .cell.null-value { background-color: ' + pivottablenullvalbgcolor.color + ' !important; }';
+						// header align
+						if (pivottableheaderalign == 'Default' || pivottableheaderalign == "Default") {} else {
+							basestyle += '.qv-object-pivot-table .qv-inner-object table tr th div {font-size:' + pivottableheaderfontsize + 'px !important;text-align: ' + pivottableheaderalign + ' !important; }';
+						}
+						if (pivottableheaderweight == 'Default' || pivottableheaderweight == "Default") {} else {
+							console.log(pivottableheaderweight);
+							basestyle += '.qv-object-pivot-table .qv-inner-object table tr th div{font-weight:' + pivottableheaderweight + ' !important;}';
+						}
+						// hide button measure
+						//customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table tr th .button-wrapper:has(div[title="Measures"]) { display:none !important; }';
+						$('.qv-object-pivot-table .qv-inner-object table tr th .button-wrapper:has(div[title="Measures"])').css("display", "none");
+					// end
+					
 				}
 				/*end table css*/
 				/* html document font style */
@@ -1885,6 +2602,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 				/* for fa icon fix in objects */
 				basestyle += '.fa {	font-family: FontAwesome !important;  }';
 				// $('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
+				
 				console.time('add style start #2');
 				console.timeEnd('add style start #2');
 				// if in edit mode change style on fly
@@ -1897,6 +2615,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 						$('<style id="custom-Qs"></style>').html(basestyle).appendTo('head');
 					}
 				}
+				
 				if (layout.CustomLayoutforobjects) {
 					// manually add object style 
 					var customobjectstyle = '';
@@ -1917,6 +2636,8 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 						customobjectstyle += '.grid-wrap-zoom-cell div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-object-nav.zero-top > a {color: ' + actionbtncolor + ' !important;}\n';
 						customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object { background: ' + containerbgcolor + ' !important; }';
 					});
+					
+					
 					// end custom table selected styling 
 					// if in edit mode change style on fly
 					if (qlik.navigation.isModeAllowed(qlik.navigation.EDIT)) {
@@ -1929,9 +2650,10 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 						}
 					}
 				}
+				
 				if (layout.customtablestyleenable) {
-					// custom table styling
-					var customtablestyle = '';
+				// custom table styling
+					var customtablestyle='';
 					$.each(layout.customtablestyle, function(k, v) {
 						/*table css*/
 						// th column name
@@ -1952,6 +2674,44 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .column-width-adjuster .column-width-adjust-line { width:' + v.tablecolumwidthadjuster + 'px !important; background: ' + v.tablecolumwidthadjustercolor + ' !important; }';
 						// table header border
 						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] table .qv-st-header-cell { border:' + v.tableheaderborder + ' !important; }';
+						
+						// align tablenumericalign tabletextalign
+						//11/6/2018
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] table .qv-st-data-cell.qv-st-data-cell-numeric .qv-st-value { text-align:' + v.tablenumericalign + ' !important; }';
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] table .qv-st-data-cell.qv-st-data-cell-dimension-value .qv-st-value { text-align:' + v.tabletextalign + ' !important; }';
+						//5/11/2018
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] table .qv-st-data-cell .qv-st-value { text-align:' + v.tablecustomalign + ' !important; }';
+						customtablestyle += 'div[tid="' + v.selectedTableObject + '"] table tr th .qv-st-value { text-align:' + v.tablecolumnalign + ' !important; }';
+						// table datastyle : tablecellstyle
+						if (v.tablecellstyle == 'standard' || v.tablecellstyle == "standard") {
+							// table data font size
+						} else if (v.tablecellstyle == 'small' || v.tablecellstyle == "small") {
+							// table data formatting
+							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] table tr td.qv-st-data-cell { padding-left: 1px !important; padding-top: 0.3em !important;  padding-bottom: 0.3em !important; ';
+						} else if (v.tablecellstyle == 'medium' || v.tablecellstyle == "medium") {
+							// table data formatting
+							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] table tr td.qv-st-data-cell { padding-left: 1px !important; padding-top: 0.6em !important;  padding-bottom: 0.6em !important; ';
+						} else if (v.tablecellstyle == 'large' || v.tablecellstyle == "large") {
+							// table data formatting
+							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] table tr td.qv-st-data-cell { padding-left: 1px !important; padding-top: 1em !important;  padding-bottom: 1em !important; ';
+						}
+						// table data font size
+						if (v.tablecellfontsize == 'standard' || v.tablecellfontsize == "standard") {
+							// table data font size
+							customtablestyle += ' }';
+						} else if (v.tablecellfontsize == 'small' || v.tablecellfontsize == "small") {
+							customtablestyle += ' font-size: 0.6em !important; }';
+						} else if (v.tablecellfontsize == 'medium' || v.tablecellfontsize == "medium") {
+							// table data font size
+							customtablestyle += ' font-size: 1.1em !important; }';
+						} else if (v.tablecellfontsize == 'large' || v.tablecellfontsize == "large") {
+							// table data font size
+							customtablestyle += ' font-size: 1.2em !important; }';
+						}
+						
+						// end
+						
+						
 						// pivotsupport
 						if (v.pivotsupport) {
 							// odd
@@ -1962,7 +2722,37 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table tr:nth-child(2) {background: ' + v.pivottablebgcolor + ' !important; color: ' + v.pivottablecolor + ' !important;}';
 							// hover
 							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table tr:nth-child(2) :hover {background: ' + v.pivottablehoverbgcolor + ' !important; color: ' + v.pivottablehovercolor + ' !important;}';
+
+								//	num val alingn
+							if (v.pivottablenumericalign == 'Default' || v.pivottablenumericalign == "Default") {} else {
+								customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table td.cell.numeric { text-align: ' + v.pivottablenumericalign + ' !important; }';
+							}
+							//5/11/2018
+							// header text align
+							if (v.pivottabledataheaderalign == 'Default' || v.pivottabledataheaderalign == "Default") {} else {
+								customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table td.cell.header { text-align: ' + v.pivottabledataheaderalign + ' !important; }';
+							}
+							// custom text align
+							if (v.pivottablecustomalign == 'Default' || v.pivottablecustomalign == "Default") {} else {
+								customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table td.cell.data { text-align: ' + v.pivottablecustomalign + ' !important; }';
+							}
+							customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table .cell.null-value { background-color: ' + v.pivottablenullvalbgcolor.color + ' !important; }';
+							// header align
+							if (v.pivottableheaderalign == 'Default' || v.pivottableheaderalign == "Default") {} else {
+								customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table tr th div {font-size:' + v.pivottableheaderfontsize + 'px !important;text-align: ' + v.pivottableheaderalign + ' !important; }';
+							}
+							if (v.pivottableheaderweight == 'Default' || v.pivottableheaderweight == "Default") {} else {
+								console.log(v.pivottableheaderweight);
+								customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table tr th div{font-weight:' + v.pivottableheaderweight + ' !important;}';
+							}
+							// hide button measure
+							//customtablestyle += 'div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table tr th .button-wrapper:has(div[title="Measures"]) { display:none !important; }';
+							$('div[tid="' + v.selectedTableObject + '"] .qv-object-pivot-table .qv-inner-object table tr th .button-wrapper:has(div[title="Measures"])').css("display", "none");
+
+						
 						}
+				
+					
 					});
 					// if in edit mode change style on fly
 					if (qlik.navigation.isModeAllowed(qlik.navigation.EDIT)) {
@@ -1974,7 +2764,10 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
 							$('<style id="custom-QsTable"></style>').html(customtablestyle).appendTo('head');
 						}
 					}
+					
 				}
+				
+				
 				console.time('add style end #2');
 				console.timeEnd('add style end #2');
 				$element.html('<textarea id="xportcsstext" class="simple-textarea lui-textarea" rows="10">' + basestyle + '</textarea>');
