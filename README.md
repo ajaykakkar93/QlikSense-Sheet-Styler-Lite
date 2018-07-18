@@ -24,8 +24,8 @@ color:#646464;font-weight:normal'>Upcoming Updates.</span></h3>
 -->
 
 <h2 style='margin-top:3.75pt;margin-right:0in;margin-bottom:3.75pt;margin-left:
-0in;background:white'><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
-color:#646464;font-weight:bold'>New Options for Table and Pivot Chart.</span></h2>
+0in;background:white'><span style='font-size:14.0pt;font-family:"Calibri",sans-serif;
+color:#646464;font-weight:bold;color:red;'>New Options for Table and Pivot Chart.</span></h2>
 
 <h3 style='margin-top:3.75pt;margin-right:0in;margin-bottom:3.75pt;margin-left:
 0in;background:white'><span style='font-size:12.0pt;font-family:"Calibri",sans-serif;
