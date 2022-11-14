@@ -2605,6 +2605,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
                 if (layout.CustomLayoutforobjects) {
                     // manually add object style 
                     var customobjectstyle = '';
+					
                     $.each(layout.listItems3, function(k, v) {
                         // console.log(v);
                         customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object header{background: ' + v.headerbgcolor + '; text-transform: capitalize !important; padding:0px !important;  }\n';
@@ -2620,11 +2621,13 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
                             customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object  {border: ' + v.qvobjectbordercss + ' !important;}\n';
                         }
                         customobjectstyle += '.grid-wrap-zoom-cell div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-object-nav.zero-top > a {color: ' + actionbtncolor + ' !important;}\n';
-                        customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object { background: ' + containerbgcolor + ' !important; }';
-                    });
+                        customobjectstyle += 'div[tid="' + v.selectedSheetObj + '"] article.qv-object .qv-inner-object { background: ' + v.containerbgcolor + ' !important; }';
+                   		console.log(customobjectstyle);
+				   
+				   });
 
-
-                    // end custom table selected styling 
+					setTimeout(function(){
+					// end custom table selected styling 
                     // if in edit mode change style on fly
                     if (qlik.navigation.isModeAllowed(qlik.navigation.EDIT)) {
                         $('#custom-QsObjects').remove();
@@ -2635,6 +2638,7 @@ define(["qlik", "ng!$q"], function(qlik, ng) {
                             $('<style id="custom-QsObjects"></style>').html(customobjectstyle).appendTo('head');
                         }
                     }
+					},1000);
                 }
 
                 if (layout.customtablestyleenable) {
